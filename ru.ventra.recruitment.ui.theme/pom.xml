@@ -55,8 +55,8 @@
               <classpathScope>compile</classpathScope>
               <mainClass>com.vaadin.sass.SassCompiler</mainClass>
               <arguments>
-                <argument>src/main/resources/VAADIN/themes/dashboard/styles.scss</argument>
-                <argument>src/main/resources/VAADIN/themes/dashboard/styles.css</argument>
+                <argument>${basedir}/src/main/resources/VAADIN/themes/dashboard/styles.scss</argument>
+                <argument>${basedir}/src/main/resources/VAADIN/themes/dashboard/styles.css</argument>
               </arguments>
             </configuration>
           </execution>

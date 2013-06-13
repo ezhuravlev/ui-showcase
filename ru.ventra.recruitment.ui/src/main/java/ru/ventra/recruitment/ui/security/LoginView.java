@@ -1,5 +1,7 @@
 package ru.ventra.recruitment.ui.security;
 
+import ru.ventra.recruitment.ui.RecruitmentUI;
+
 import com.vaadin.event.ShortcutListener;
 import com.vaadin.event.ShortcutAction.KeyCode;
 import com.vaadin.shared.ui.label.ContentMode;
@@ -15,9 +17,15 @@ import com.vaadin.ui.Button.ClickEvent;
 
 public class LoginView extends VerticalLayout {
     private static final long serialVersionUID = 1L;
+    private RecruitmentUI recruitmentUI;
+    
+    private TextField username;
+    private PasswordField password;
 
-    public LoginView() {
+    public LoginView(RecruitmentUI recruitmentUI) {
         super();
+        
+        this.recruitmentUI = recruitmentUI;
 
         setSizeFull();
         addStyleName("login-layout");
@@ -42,7 +50,7 @@ public class LoginView extends VerticalLayout {
         labels.addComponent(welcome);
         labels.setComponentAlignment(welcome, Alignment.MIDDLE_LEFT);
 
-        Label title = new Label("QuickTickets Dashboard");
+        Label title = new Label("Ventra HRMS");
         title.setSizeUndefined();
         title.addStyleName("h2");
         title.addStyleName("light");
@@ -54,11 +62,11 @@ public class LoginView extends VerticalLayout {
         fields.setMargin(true);
         fields.addStyleName("fields");
 
-        final TextField username = new TextField("Username");
+        username = new TextField("Username");
         username.focus();
         fields.addComponent(username);
 
-        final PasswordField password = new PasswordField("Password");
+        password = new PasswordField("Password");
         fields.addComponent(password);
 
         final Button signin = new Button("Sign In");
@@ -80,13 +88,9 @@ public class LoginView extends VerticalLayout {
 
             @Override
             public void buttonClick(ClickEvent event) {
-                if (username.getValue() != null && 
-                    username.getValue().equals("") && 
-                    password.getValue() != null && 
-                    password.getValue().equals("")) {
-                    
+                if (isValid()) {                    
                     signin.removeShortcutListener(enter);
-                    //buildMainView();
+                    recruitmentUI.showMainView();
                 } else {
                     if (loginPanel.getComponentCount() > 2) {
                         // Remove the previous error message
@@ -111,5 +115,10 @@ public class LoginView extends VerticalLayout {
 
         addComponent(loginPanel);
         setComponentAlignment(loginPanel, Alignment.MIDDLE_CENTER);
+    }
+    
+    private boolean isValid() {
+        return username.getValue() != null && username.getValue().equals("") && 
+               password.getValue() != null && password.getValue().equals("");
     }
 }

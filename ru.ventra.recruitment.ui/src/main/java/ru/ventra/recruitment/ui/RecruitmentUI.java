@@ -22,21 +22,18 @@ import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 
 @Theme("dashboard")
-@Title("Ventra HRMS UI Showcase")
+@Title("Ventra HRMS showcase")
 public class RecruitmentUI extends UI implements Button.ClickListener {
 	private static final long serialVersionUID = 1L;
+	
+	private CssLayout root;
+	private LoginView loginView;
 	
 	private Button dashbordButton;
 	private Button interviewsButton;
 	private Button reportsButton;
 	
 	private Button selectedButton;
-
-    //CssLayout root = new CssLayout();
-
-    VerticalLayout loginLayout;
-
-    //CssLayout menu = new CssLayout();
 
 	private CssLayout viewContent;
 
@@ -53,32 +50,37 @@ public class RecruitmentUI extends UI implements Button.ClickListener {
 	@Override
 	protected void init(VaadinRequest request) {
 	    
-		CssLayout root = new CssLayout();
+		root = new CssLayout();
 		root.setStyleName("root");
 		root.setSizeFull();
 		
-		buildLoginView(root);
+        Label bg = new Label();
+        bg.setSizeUndefined();
+        bg.addStyleName("login-bg");
+        root.addComponent(bg);
 		
-		//buildMainView(root);
+		showLoginView();
 		
         setContent(root);
 	}
 	
-	private void buildLoginView(CssLayout root) {
-        addStyleName("login");
+	private void showLoginView() {
 
-        LoginView loginView = new LoginView();
-        loginView.setSizeFull();
-        loginView.addStyleName("login-layout");
+        loginView = new LoginView(this);
         
+        addStyleName("login");
         root.addComponent(loginView);
     }
 
-    private void buildMainView(CssLayout root) {
-        /*nav = new Navigator(this, viewContent);
+    public void showMainView() {
+        
+        removeStyleName("login");
+        root.removeComponent(loginView);
+        
+        nav = new Navigator(this, viewContent);
         for (String route : routes.keySet()) {
             nav.addView(route, routes.get(route));
-        }*/
+        }
         
         HorizontalLayout viewport = new HorizontalLayout();
         viewport.setStyleName("main-view");
@@ -93,8 +95,9 @@ public class RecruitmentUI extends UI implements Button.ClickListener {
         viewport.addComponent(viewContent);
         viewport.setExpandRatio(viewContent, 100);
         
-        root.addComponent(viewport);        
-	}
+        root.addComponent(viewport);
+        
+    }
 
 	private void createSidebar(Layout viewport) {
 		
@@ -105,7 +108,7 @@ public class RecruitmentUI extends UI implements Button.ClickListener {
 		
 		CssLayout logo = new CssLayout();
 		logo.setStyleName("branding");
-		logo.addComponent(new Label("<span>Ventra HRMS</span>UI Showcase", ContentMode.HTML));		
+		logo.addComponent(new Label("<span>Ventra HRMS</span>showcase", ContentMode.HTML));		
 		sidebar.addComponent(logo);
 		
 		CssLayout menu = new CssLayout();

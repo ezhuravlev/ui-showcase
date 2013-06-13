@@ -199,15 +199,15 @@ public class CandidatesView extends VerticalLayout implements View, ClickListene
 		getUI().addWindow(dialog);
 	}
 	
-	private static InputStream loadResource(String path) {
+	protected static InputStream loadResource(String path) {
 		return Thread.currentThread().getContextClassLoader().getResourceAsStream(path);
 	}
 	
-	private void importCV() {
+	protected void importCV() {
 		try {
 			File input = new File("/tmp/input.html");
 			Document doc = Jsoup.parse(input, "UTF-8", "http://example.com/");
-			
+			doc.attributes();
 			//id = hh.ru id
 			
 			//date
