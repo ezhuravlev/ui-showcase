@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-2.0.xsd">
+	
+	<changeSet id="initial-data-0" author="ezhuravlev">
+		<!-- Security -->
+		<insert tableName="User">
+			<column name="id" value="1" />
+			<column name="login" value="admin" />
+			<column name="password" value="admin" />
+			<column name="version" value="0" />
+		</insert>
+		<insert tableName="Role">
+			<column name="id" value="1" />
+			<column name="name" value="User" />
+			<column name="version" value="0" />
+		</insert>
+		<insert tableName="UserRole">
+			<column name="roleId" value="1" />
+			<column name="userId" value="1" />
+		</insert>
+		<insert tableName="Role">
+			<column name="id" value="2" />
+			<column name="name" value="Administrator" />
+			<column name="version" value="0" />
+		</insert>
+		<insert tableName="UserRole">
+			<column name="roleId" value="2" />
+			<column name="userId" value="1" />
+		</insert>
+		<!-- Other -->
+		<insert tableName="Candidate">            
+			<column name="id" value="1" />
+			<column name="firstName" value="Vasya" />
+			<column name="middleName" value="Napasovich" />
+			<column name="lastName" value="Pupkin" />
+			<column name="version" value="0" />
+		</insert>
+	</changeSet>
+	<changeSet id="initial-data-1" author="ezhuravlev">
+		<insert tableName="Attachment">            
+			<column name="id" value="1" />            
+			<column name="title" value="Attachment" />            
+			<column name="description" value="Description" />
+			           
+			<column name="mimeType" value="image/jpeg" />             
+			<column name="fileSize" value="2" />            
+			
+			<column name="creationDate" value="2013-02-08" />            
+			<column name="createdBy" value="1" />           
+			<column name="modificationDate" value="2013-02-08" />             
+			<column name="modifiedBy" value="1" />              
+			<column name="version" value="0" />
+		</insert>
+		<insert tableName="AttachmentData">            
+			<column name="id" value="1" />            
+			<column name="value" value="abcdef" />
+		</insert>
+		<insert tableName="CandidateAttachment">            
+			<column name="candidateId" value="1" />
+			<column name="attachmentId" value="1" />
+		</insert>
+	</changeSet>
+</databaseChangeLog>

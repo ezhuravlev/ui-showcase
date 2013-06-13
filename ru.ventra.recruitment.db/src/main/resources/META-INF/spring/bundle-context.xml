@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:context="http://www.springframework.org/schema/context"
+	   xmlns:osgix="http://www.eclipse.org/gemini/blueprint/schema/blueprint-compendium"
+	   xmlns:p="http://www.springframework.org/schema/p"	   
+       xmlns:util="http://www.springframework.org/schema/util"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans
+	   					   http://www.springframework.org/schema/beans/spring-beans.xsd         
+	   					   http://www.springframework.org/schema/context 
+	   					   http://www.springframework.org/schema/context/spring-context.xsd
+		                   http://www.eclipse.org/gemini/blueprint/schema/blueprint-compendium
+		                   http://www.eclipse.org/gemini/blueprint/schema/blueprint-compendium/gemini-blueprint-compendium.xsd
+	   					   http://www.springframework.org/schema/util 
+	   					   http://www.springframework.org/schema/util/spring-util.xsd">
+	
+	<!-- OSGI blueprint property placeholder -->
+    <osgix:cm-properties id="properties" persistent-id="ru.ventra.recruitment.db">
+	    <prop key="database.driverClassName">org.h2.Driver</prop>
+<!-- 	    <prop key="database.url">jdbc:h2:tcp://localhost/mem:recruitment_db;AUTO_SERVER=TRUE</prop> -->
+	    <prop key="database.url">jdbc:h2:mem:recruitment_db</prop>
+		<prop key="database.username">sa</prop>
+		<prop key="database.password"></prop>
+		<prop key="database.testQuery">SELECT 1</prop>
+		<prop key="database.uniqueResourceName">recruitment_db</prop>
+		<prop key="database.minPoolSize">0</prop>
+		<prop key="database.maxPoolSize">10</prop>
+    </osgix:cm-properties>
+    
+    <context:property-placeholder properties-ref="properties" />
+	
+	<!-- 
+	 	  p:reapTimeout=""
+	 	  p:maxIdleTime=""
+	 	  p:loginTimeout=""
+	 	  p:borrowConnectionTimeout=""
+	 	  p:defaultIsolationLevel=""
+	 	  p:maintenanceInterval=""
+	-->
+	
+	<!--bean id="dataSource" 
+		  class="com.atomikos.jdbc.AtomikosDataSourceBean" 
+		  init-method="init" 
+		  destroy-method="close"
+	 	  p:xaDataSourceClassName="${database.driverClassName}"
+	 	  p:minPoolSize="${database.minPoolSize}"
+	 	  p:maxPoolSize="${database.maxPoolSize}"
+	 	  p:testQuery="${database.testQuery}"
+	 	  p:uniqueResourceName="${database.uniqueResourceName}">
+	 	  
+		<property name="xaProperties">
+			<props>
+				<prop key="URL">${database.url}</prop>
+				<prop key="User">${database.username}</prop>
+				<prop key="Password">${database.password}</prop>
+			</props>
+		</property>
+	</bean -->
+	
+	<bean id="dataSource" 
+		  class="org.apache.commons.dbcp.BasicDataSource" 
+		  destroy-method="close"
+		  p:driverClassName="${database.driverClassName}"
+		  p:url="${database.url}"
+		  p:username="${database.username}"
+		  p:password="${database.password}" />
+		  
+</beans>

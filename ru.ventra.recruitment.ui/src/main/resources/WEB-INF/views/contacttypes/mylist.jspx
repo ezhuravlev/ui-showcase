@@ -1,0 +1,23 @@
+<html xmlns:jsp="http://java.sun.com/JSP/Page"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:tiles="http://tiles.apache.org/tags-tiles"
+	xmlns:spring="http://www.springframework.org/tags"
+	xmlns:util="urn:jsptagdir:/WEB-INF/tags/util">
+<head>
+<title>Contacttype list</title>
+</head>
+<body>
+	<h2>Contactype List</h2>
+	<h3>
+		<c:if test="${!empty contacttypes}">
+			<table class="data">
+				<c:forEach items="${contacttypes}" var="contacttype">
+					<tr>
+						<td>${contacttype.name}</td>
+					</tr>
+				</c:forEach>
+			</table>
+		</c:if>
+	</h3>
+</body>
+</html>

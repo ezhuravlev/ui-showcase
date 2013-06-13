@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:field="urn:jsptagdir:/WEB-INF/tags/form/fields"
+	xmlns:form="urn:jsptagdir:/WEB-INF/tags/form"
+	xmlns:jsp="http://java.sun.com/JSP/Page"
+	xmlns:spring="http://www.springframework.org/tags" version="2.0">
+	<jsp:directive.page contentType="text/html;charset=UTF-8" />
+	<jsp:output omit-xml-declaration="yes" />
+	<form:create id="fc_ru_ventra_recruitment_domain_Contact"
+		modelAttribute="contact" path="/contacts"
+		render="${empty dependencies}" z="o7+p1FHYqOFkMz+lPN6x4rUPnjc=">
+		<field:select field="type"
+			id="c_ru_ventra_recruitment_domain_Contact_type" itemValue="id"
+			items="${contacttypes}" path="/contacttypes"
+			z="eZfh7kew/duZ4e2AVHw+D4oqGtE=" />
+		<field:input field="val"
+			id="c_ru_ventra_recruitment_domain_Contact_val" min="2"
+			required="true" z="lZcB4yPL/8quy4REx80pyiHDXH0=" />
+	</form:create>
+	<form:dependency dependencies="${dependencies}"
+		id="d_ru_ventra_recruitment_domain_Contact"
+		render="${not empty dependencies}" z="Mb+mytIqSh5DLwY/f0dY9xcpkHc=" />
+</div>

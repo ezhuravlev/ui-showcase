@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:field="urn:jsptagdir:/WEB-INF/tags/form/fields" xmlns:form="urn:jsptagdir:/WEB-INF/tags/form" xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+    <form:update id="fu_ru_ventra_recruitment_domain_Contact" modelAttribute="contact" path="/contacts" versionField="Version" z="qTxcBSgsJpCqQFnEpTzCcwVRAbg=">
+        <field:select field="type" id="c_ru_ventra_recruitment_domain_Contact_type" itemValue="id" items="${contacttypes}" path="/contacttypes" z="eZfh7kew/duZ4e2AVHw+D4oqGtE="/>
+        <field:input field="val" id="c_ru_ventra_recruitment_domain_Contact_val" min="2" required="true" z="lZcB4yPL/8quy4REx80pyiHDXH0="/>
+    </form:update>
+</div>

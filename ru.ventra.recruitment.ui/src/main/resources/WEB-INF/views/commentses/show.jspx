@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:field="urn:jsptagdir:/WEB-INF/tags/form/fields" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:page="urn:jsptagdir:/WEB-INF/tags/form" version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+    <page:show id="ps_ru_ventra_recruitment_domain_Comments" object="${comments}" path="/commentses" z="ZUklw3q+yYCXrOXXCdW8xZO+oCo=">
+        <field:display field="rate" id="s_ru_ventra_recruitment_domain_Comments_rate" object="${comments}" z="7pDXU99Mn9sbaUc1ji3MWoH8KiE="/>
+        <field:display field="text" id="s_ru_ventra_recruitment_domain_Comments_text" object="${comments}" z="RXRJksEWJ6rl3sKYL0+Ix6XJHQ4="/>
+        <field:display field="profile" id="s_ru_ventra_recruitment_domain_Comments_profile" object="${comments}" z="yYqNigfpAs8odS0bpOnBC79bYJg="/>
+    </page:show>
+</div>

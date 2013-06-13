@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:field="urn:jsptagdir:/WEB-INF/tags/form/fields" xmlns:form="urn:jsptagdir:/WEB-INF/tags/form" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:spring="http://www.springframework.org/tags" version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+    <form:create id="fc_ru_ventra_recruitment_domain_User" modelAttribute="user" path="/user" render="${empty dependencies}" z="7D/h/DO3yhAv1agFufi1ePrBRJY=">
+        <field:input field="login" id="c_ru_ventra_recruitment_domain_User_login" required="true" z="fVfTVn7lEsRwtqCDsX3fc+Ht1Pc="/>
+        <field:input field="password" id="c_ru_ventra_recruitment_domain_User_password" required="true" z="Nglt5fIrmKzPN96/W9r3IxxPCs0="/>
+        <field:select field="candidates" id="c_ru_ventra_recruitment_domain_User_candidates" itemValue="id" items="${candidates}" multiple="true" path="/candidates" z="34PMjYG6QMgpmahrU5a/Sh4W7iE="/>
+        <field:select field="comments" id="c_ru_ventra_recruitment_domain_User_comments" itemValue="id" items="${commentses}" multiple="true" path="/commentses" z="wOh4Map1etb8LnLEC1JnFBHxZ+c="/>
+        <field:select field="vacancys" id="c_ru_ventra_recruitment_domain_User_vacancys" itemValue="id" items="${vacancys}" multiple="true" path="/vacancys" z="hXDOBANQA1fxvoyDagNsUN3x9QA="/>
+    </form:create>
+    <form:dependency dependencies="${dependencies}" id="d_ru_ventra_recruitment_domain_User" render="${not empty dependencies}" z="TWTmlov/TACLmQ9YsALUzsxD9+o="/>
+</div>

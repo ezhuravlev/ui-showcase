@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:field="urn:jsptagdir:/WEB-INF/tags/form/fields" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:page="urn:jsptagdir:/WEB-INF/tags/form" version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+    <page:show id="ps_ru_ventra_recruitment_domain_User" object="${user}" path="/profileses" z="Zt+Z+7iFkCEMKs1YFV9bIvCcyQQ=">
+        <field:display field="login" id="s_ru_ventra_recruitment_domain_User_login" object="${user}" z="vkQ+mlpI/CMtgL4LHGFIynzEREU="/>
+        <field:display field="password" id="s_ru_ventra_recruitment_domain_User_password" object="${user}" z="k7Xcr+NM7ZcsF2ceP66LNrx1F9s="/>
+        <field:display field="candidates" id="s_ru_ventra_recruitment_domain_User_candidates" object="${user}" z="FiILyGkTe+IbErWHJDdav2ckYks="/>
+        <field:display field="comments" id="s_ru_ventra_recruitment_domain_User_comments" object="${user}" z="fUrDkeDUGiKNO2eZCylnkNIdbJY="/>
+        <field:display field="vacancys" id="s_ru_ventra_recruitment_domain_User_vacancys" object="${user}" z="xCdyNJItTHaET+3RgYcUmTs2Ofc="/>
+    </page:show>
+</div>

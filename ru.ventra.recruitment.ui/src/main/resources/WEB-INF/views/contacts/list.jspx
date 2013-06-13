@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:page="urn:jsptagdir:/WEB-INF/tags/form" xmlns:table="urn:jsptagdir:/WEB-INF/tags/form/fields" version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+    <page:list id="pl_ru_ventra_recruitment_domain_Contact" items="${contacts}" z="JtOQgXU4JfuvJoHgsOlPbf9SlTQ=">
+        <table:table data="${contacts}" id="l_ru_ventra_recruitment_domain_Contact" path="/contacts" z="r4AMQPcAhWPiZmhqWRyoedRbCxg=">
+            <table:column id="c_ru_ventra_recruitment_domain_Contact_type" property="type" z="tNtPVLEY6eL+AlAUVj4I1ZvVxRE="/>
+            <table:column id="c_ru_ventra_recruitment_domain_Contact_val" property="val" z="458OGDuUnEDHwkKj2uj1+TJClvU="/>
+        </table:table>
+    </page:list>
+</div>

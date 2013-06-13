@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:page="urn:jsptagdir:/WEB-INF/tags/form" xmlns:table="urn:jsptagdir:/WEB-INF/tags/form/fields" version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+    <page:list id="pl_ru_ventra_recruitment_domain_Comments" items="${commentses}" z="YB0EPZuj3v7+6GEfti9rfrEJb5s=">
+        <table:table data="${commentses}" id="l_ru_ventra_recruitment_domain_Comments" path="/commentses" z="wUNc1cWOiG51Hawp+TYVblUAMdc=">
+            <table:column id="c_ru_ventra_recruitment_domain_Comments_rate" property="rate" z="f5Bk0qUXWBAO/WkNlLug7KOxsxw="/>
+            <table:column id="c_ru_ventra_recruitment_domain_Comments_text" property="text" z="Cl+aK+RV4fHTqK/3RZa0ay1DXw4="/>
+            <table:column id="c_ru_ventra_recruitment_domain_Comments_profile" property="profile" z="C4QzpzRt0gX0edf6zA84+NtEvHc="/>
+        </table:table>
+    </page:list>
+</div>

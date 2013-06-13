@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-2.0.xsd">
+    <changeSet author="ezhuravlev (generated)" id="1360323569183-1">
+        <createTable tableName="Attachment">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="fileSize" type="INTEGER">
+                <constraints nullable="false"/>
+            </column>
+            <column name="creationDate" type="DATE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="title" type="VARCHAR"/>
+            <column name="description" type="VARCHAR"/>
+            <column name="modificationDate" type="DATE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="mimeType" type="VARCHAR">
+                <constraints nullable="false"/>
+            </column>
+            <column name="version" type="INTEGER"/>
+            <column name="createdBy" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="modifiedBy" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="ezhuravlev (generated)" id="1360323569183-2">
+        <createTable tableName="AttachmentData">
+            <column name="value" type="LONGVARBINARY">
+                <constraints nullable="false"/>
+            </column>
+            <column name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="ezhuravlev (generated)" id="1360323569183-3">
+        <createTable tableName="Candidate">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="middleName" type="VARCHAR"/>
+            <column name="lastName" type="VARCHAR">
+                <constraints nullable="false"/>
+            </column>
+            <column name="firstName" type="VARCHAR">
+                <constraints nullable="false"/>
+            </column>
+            <column name="version" type="INTEGER"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="ezhuravlev (generated)" id="1360323569183-4">
+        <createTable tableName="CandidateAttachment">
+            <column name="candidateId" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="attachmentId" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="ezhuravlev (generated)" id="1360323569183-5">
+        <createTable tableName="Role">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="name" type="VARCHAR">
+                <constraints nullable="false"/>
+            </column>
+            <column name="version" type="INTEGER"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="ezhuravlev (generated)" id="1360323569183-6">
+        <createTable tableName="User">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="login" type="VARCHAR">
+                <constraints nullable="false"/>
+            </column>
+            <column name="password" type="VARCHAR">
+                <constraints nullable="false"/>
+            </column>
+            <column name="version" type="INTEGER"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="ezhuravlev (generated)" id="1360323569183-7">
+        <createTable tableName="UserRole">
+            <column name="userId" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="roleId" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="ezhuravlev (generated)" id="1360323569183-8">
+        <addPrimaryKey columnNames="candidateId, attachmentId" tableName="CandidateAttachment"/>
+    </changeSet>
+    <changeSet author="ezhuravlev (generated)" id="1360323569183-9">
+        <addPrimaryKey columnNames="userId, roleId" tableName="UserRole"/>
+    </changeSet>
+    <changeSet author="ezhuravlev (generated)" id="1360323569183-10">
+        <addForeignKeyConstraint baseColumnNames="createdBy" baseTableName="Attachment" constraintName="FK_Attachment_createdBy" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="User" referencesUniqueColumn="false"/>
+    </changeSet>
+    <changeSet author="ezhuravlev (generated)" id="1360323569183-11">
+        <addForeignKeyConstraint baseColumnNames="modifiedBy" baseTableName="Attachment" constraintName="FK_Attachment_modifiedBy" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="User" referencesUniqueColumn="false"/>
+    </changeSet>
+    <changeSet author="ezhuravlev (generated)" id="1360323569183-12">
+        <addForeignKeyConstraint baseColumnNames="id" baseTableName="AttachmentData" constraintName="FK_AttachmentData_id" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="Attachment" referencesUniqueColumn="false"/>
+    </changeSet>
+    <changeSet author="ezhuravlev (generated)" id="1360323569183-13">
+        <addForeignKeyConstraint baseColumnNames="attachmentId" baseTableName="CandidateAttachment" constraintName="FK_CandidateAttachment_attachmentId" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="Attachment" referencesUniqueColumn="false"/>
+    </changeSet>
+    <changeSet author="ezhuravlev (generated)" id="1360323569183-14">
+        <addForeignKeyConstraint baseColumnNames="candidateId" baseTableName="CandidateAttachment" constraintName="FK_CandidateAttachment_candidateId" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="Candidate" referencesUniqueColumn="false"/>
+    </changeSet>
+    <changeSet author="ezhuravlev (generated)" id="1360323569183-15">
+        <addForeignKeyConstraint baseColumnNames="roleId" baseTableName="UserRole" constraintName="FK_UserRole_roleId" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="Role" referencesUniqueColumn="false"/>
+    </changeSet>
+    <changeSet author="ezhuravlev (generated)" id="1360323569183-16">
+        <addForeignKeyConstraint baseColumnNames="userId" baseTableName="UserRole" constraintName="FK_UserRole_userId" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="User" referencesUniqueColumn="false"/>
+    </changeSet>
+</databaseChangeLog>

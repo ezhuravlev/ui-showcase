@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:page="urn:jsptagdir:/WEB-INF/tags/form" xmlns:table="urn:jsptagdir:/WEB-INF/tags/form/fields" version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+    <page:list id="pl_ru_ventra_recruitment_domain_User" items="${users}" z="exO3iwBU4i6DcoHDe85WYhVyiSI=">
+        <table:table data="${profileses}" id="l_ru_ventra_recruitment_domain_User" path="/user" z="pZvQFJnFoZcKKZMSpiQglYL2TCA=">
+            <table:column id="c_ru_ventra_recruitment_domain_User_login" property="login" z="YvfBs2PO//cfJY3B5fomZh4pvsg="/>
+            <table:column id="c_ru_ventra_recruitment_domain_User_password" property="password" z="zXLY671UjsNz+RPpd6ozJGxT890="/>
+            <table:column id="c_ru_ventra_recruitment_domain_User_candidates" property="candidates" z="HD2GXhe7zwq17YcMJad8oO4DCtI="/>
+            <table:column id="c_ru_ventra_recruitment_domain_User_comments" property="comments" z="xWaQHvJ3tYuuPZdikBfP2jaIbSE="/>
+            <table:column id="c_ru_ventra_recruitment_domain_User_vacancys" property="vacancys" z="AyQtVGgjcOCpRyenqM+tJBoZuR4="/>
+        </table:table>
+    </page:list>
+</div>

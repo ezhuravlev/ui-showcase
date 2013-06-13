@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:field="urn:jsptagdir:/WEB-INF/tags/form/fields" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:page="urn:jsptagdir:/WEB-INF/tags/form" version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+    <page:show id="ps_ru_ventra_recruitment_domain_Contact" object="${contact}" path="/contacts" z="/JKwr5Fy4Mt3P0OyUcWcSyO+jb8=">
+        <field:display field="type" id="s_ru_ventra_recruitment_domain_Contact_type" object="${contact}" z="zsxUUFWyEk9JF94ESsV1ZLEFiO0="/>
+        <field:display field="val" id="s_ru_ventra_recruitment_domain_Contact_val" object="${contact}" z="Z5BNZbbt8ZZXp6IVyMKO5TBpKVc="/>
+    </page:show>
+</div>
