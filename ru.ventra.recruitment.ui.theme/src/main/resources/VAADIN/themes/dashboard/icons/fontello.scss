@@ -1,12 +1,3 @@
-@mixin fontello-icon($name, $char) {
-	.icon-#{$name}.v-nativebutton:before,
-	.icon-#{$name} > .v-button-wrap:before,
-	.icon-#{$name}.v-label:before,
-	.v-menubar-menuitem-icon-#{$name}:before {
-		content: $char;
-	}
-}
-
 @mixin icons-fontello {
 
 	@font-face {
@@ -51,17 +42,17 @@
 	  margin-left: .3em;
 	}
 	
-	@include fontello-icon(transactions, '\21c4');
-	@include fontello-icon(dashboard, '\2302');
-	@include fontello-icon(reports, '\e7a2');	
-	@include fontello-icon(schedule, '\1f4c5');
-	@include fontello-icon(sales, '\1f4c8');
-	@include fontello-icon(cog, '\2699');
-	@include fontello-icon(cog, '\2699');
-	@include fontello-icon(user, '\1f464');
-	@include fontello-icon(attention, '\26a0');
-	@include fontello-icon(edit, '\270d');
-	@include fontello-icon(bell, '\1f514');
-	@include fontello-icon(cancel, '\2715');
+	@include icon(transactions, '\21c4');
+	@include icon(dashboard, '\2302');
+	@include icon(reports, '\e7a2');	
+	@include icon(schedule, '\1f4c5');
+	@include icon(sales, '\1f4c8');
+	@include icon(cog, '\2699');
+	@include icon(cog, '\2699');
+	@include icon(user, '\1f464');
+	@include icon(attention, '\26a0');
+	@include icon(edit, '\270d');
+	@include icon(bell, '\1f514');
+	@include icon(cancel, '\2715');
 	
 }

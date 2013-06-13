@@ -5,22 +5,22 @@ import java.util.Collection;
 import javax.persistence.EntityManager;
 
 public interface GenericFilteringDao<K, V> {
-	
-	public void persist(V entity);
 
-	public V remove(K id);
+    public void persist(V entity);
 
-	public V merge(V entity);
+    public V remove(K id);
 
-	public V get(K id);
+    public V merge(V entity);
 
-	public Collection<V> getAll();
+    public V get(K id);
 
-	public Collection<V> getList(int first, int size);
+    public Collection<V> getAll();
 
-	public Long count();
+    public Collection<V> getList(int first, int size);
 
-	public Class<V> getEntityType();
+    public Long count();
 
-	public EntityManager getEntityManager();
+    public Class<V> getEntityType();
+
+    public EntityManager getEntityManager();
 }

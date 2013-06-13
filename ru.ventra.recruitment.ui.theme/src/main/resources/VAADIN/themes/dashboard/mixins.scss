@@ -1,3 +1,13 @@
+@mixin icon($name, $char) {
+	.icon-#{$name}.v-nativebutton:before,
+	.icon-#{$name} > .v-button-wrap:before,
+	.icon-#{$name}.v-label:before,
+	.v-menubar-menuitem-icon-#{$name}:before {
+		content: $char;
+	}
+}
+
+
 @mixin box-sizing($b) {
 	-webkit-box-sizing: $b;
 	-moz-box-sizing: $b;
@@ -38,13 +48,13 @@
 	transform: $t;
 }
 
-/* @mixin animation ($name, $duration, $easing) { */
-/* 	-webkit-animation: $name $duration $easing; */
-/* 	-moz-animation: $name $duration $easing; */
-/* 	-ms-animation: $name $duration $easing; */
-/* 	-o-animation: $name $duration $easing; */
-/* 	animation: $name $duration $easing; */
-/* } */
+@mixin animation ($name, $duration, $easing) {
+	-webkit-animation: $name $duration $easing;
+	-moz-animation: $name $duration $easing;
+	-ms-animation: $name $duration $easing;
+	-o-animation: $name $duration $easing;
+	animation: $name $duration $easing;
+}
 
 @mixin animation-duration ($duration) {
 	-webkit-animation-duration: $duration;

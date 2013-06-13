@@ -8,21 +8,21 @@ import ru.ventra.recruitment.dao.GenericFilteringDao;
 
 public interface GenericFilteringService<K, V> {
 
-	public EntityManager getEntityManager();
-	
-	public void persist(V entity);
+    public EntityManager getEntityManager();
 
-	public V remove(K id);
+    public void persist(V entity);
 
-	public V merge(V entity);
+    public V remove(K id);
 
-	public V get(K id);
+    public V merge(V entity);
 
-	public Collection<V> getAll();
+    public V get(K id);
 
-	public Collection<V> getList(int first, int size);
+    public Collection<V> getAll();
 
-	public Long count();
+    public Collection<V> getList(int first, int size);
 
-	public GenericFilteringDao<K, V> getDao();
+    public Long count();
+
+    public GenericFilteringDao<K, V> getDao();
 }

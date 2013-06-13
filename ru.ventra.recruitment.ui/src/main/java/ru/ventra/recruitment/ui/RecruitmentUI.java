@@ -2,6 +2,8 @@ package ru.ventra.recruitment.ui;
 
 import java.util.HashMap;
 
+import ru.ventra.recruitment.ui.security.LoginView;
+
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.Title;
 import com.vaadin.navigator.Navigator;
@@ -50,35 +52,48 @@ public class RecruitmentUI extends UI implements Button.ClickListener {
 
 	@Override
 	protected void init(VaadinRequest request) {
-		
+	    
 		CssLayout root = new CssLayout();
 		root.setStyleName("root");
 		root.setSizeFull();
 		
-		HorizontalLayout viewport = new HorizontalLayout();
-		viewport.setStyleName("main-view");
-		viewport.setSizeFull();
+		buildLoginView(root);
 		
-		viewContent = new CssLayout();		
-		viewContent.setStyleName("view-content");
-		viewContent.setSizeFull();
-		
-		createSidebar(viewport);
-		
-		viewport.addComponent(viewContent);
-		viewport.setExpandRatio(viewContent, 100);
-		
-		root.addComponent(viewport);
+		//buildMainView(root);
 		
         setContent(root);
 	}
 	
-	private void buildMainView() {
-        nav = new Navigator(this, viewContent);
+	private void buildLoginView(CssLayout root) {
+        addStyleName("login");
+
+        LoginView loginView = new LoginView();
+        loginView.setSizeFull();
+        loginView.addStyleName("login-layout");
+        
+        root.addComponent(loginView);
+    }
+
+    private void buildMainView(CssLayout root) {
+        /*nav = new Navigator(this, viewContent);
         for (String route : routes.keySet()) {
             nav.addView(route, routes.get(route));
-        }
+        }*/
         
+        HorizontalLayout viewport = new HorizontalLayout();
+        viewport.setStyleName("main-view");
+        viewport.setSizeFull();
+        
+        viewContent = new CssLayout();      
+        viewContent.setStyleName("view-content");
+        viewContent.setSizeFull();
+        
+        createSidebar(viewport);
+        
+        viewport.addComponent(viewContent);
+        viewport.setExpandRatio(viewContent, 100);
+        
+        root.addComponent(viewport);        
 	}
 
 	private void createSidebar(Layout viewport) {

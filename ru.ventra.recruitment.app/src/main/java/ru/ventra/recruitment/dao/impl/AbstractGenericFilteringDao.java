@@ -15,98 +15,91 @@ import ru.ventra.recruitment.dao.GenericFilteringDao;
 
 public abstract class AbstractGenericFilteringDao<K, V> implements GenericFilteringDao<K, V> {
 
-	private Class<V> entityType;
+    private Class<V> entityType;
 
-	@PersistenceContext
-	private EntityManager em;
-	
-	
-	
-	public AbstractGenericFilteringDao(Class<V> entityType) {
-		this.entityType = entityType;
-	}
+    @PersistenceContext
+    private EntityManager em;
 
-	@Override
-	public Class<V> getEntityType() {
-		return entityType;
-	}
-	
-	@Override
-	public EntityManager getEntityManager() {
-		return em;
-	}
+    public AbstractGenericFilteringDao(Class<V> entityType) {
+        this.entityType = entityType;
+    }
 
-	@Override
-	@Transactional
-	public void persist(V entity) {
-		em.persist(entity);
-	}
+    @Override
+    public Class<V> getEntityType() {
+        return entityType;
+    }
 
-	@Override
-	public V remove(K id) {
+    @Override
+    public EntityManager getEntityManager() {
+        return em;
+    }
 
-		V entity = em.find(getEntityType(), id);
+    @Override
+    @Transactional
+    public void persist(V entity) {
+        em.persist(entity);
+    }
 
-		if (null != entity) {
-			em.detach(entity);
-			em.remove(em.merge(entity));
-		}
+    @Override
+    public V remove(K id) {
 
-		return entity;
-	}
+        V entity = em.find(getEntityType(), id);
 
-	@Override
-	public V merge(V entity) {
-		return em.merge(entity);
-	}
+        if (null != entity) {
+            em.detach(entity);
+            em.remove(em.merge(entity));
+        }
 
-	@Override
-	public V get(K id) {
-		return em.find(getEntityType(), id);
-	}
+        return entity;
+    }
 
-	@Override
-	public Collection<V> getAll() {
+    @Override
+    public V merge(V entity) {
+        return em.merge(entity);
+    }
 
-		CriteriaBuilder cb = em.getCriteriaBuilder();
+    @Override
+    public V get(K id) {
+        return em.find(getEntityType(), id);
+    }
 
-		CriteriaQuery<V> query = cb.createQuery(getEntityType());
+    @Override
+    public Collection<V> getAll() {
 
-		query.from(getEntityType());
+        CriteriaBuilder cb = em.getCriteriaBuilder();
 
-		return em.createQuery(query)
-				 .getResultList();
-	}
+        CriteriaQuery<V> query = cb.createQuery(getEntityType());
 
-	@Override
-	public Collection<V> getList(int first, int size) {
-		
-		CriteriaBuilder cb = em.getCriteriaBuilder();
+        query.from(getEntityType());
 
-		CriteriaQuery<V> query = cb.createQuery(getEntityType());
+        return em.createQuery(query).getResultList();
+    }
 
-		query.from(getEntityType());
-		
-		return em.createQuery(query)
-				 .setFirstResult(first)
-				 .setMaxResults(size)
-				 .getResultList();
-	}
+    @Override
+    public Collection<V> getList(int first, int size) {
 
-	@Override
-	public Long count() {
-		
-		CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaBuilder cb = em.getCriteriaBuilder();
 
-		CriteriaQuery<Long> query = cb.createQuery(Long.class);
+        CriteriaQuery<V> query = cb.createQuery(getEntityType());
 
-		Root<V> entityRoot = query.from(getEntityType());
-		
-		Expression<Long> count = cb.count(entityRoot);
-		
-		query.select(count);
-		
-		return em.createQuery(query)
-				 .getSingleResult();
-	}
+        query.from(getEntityType());
+
+        return em.createQuery(query).setFirstResult(first).setMaxResults(size).getResultList();
+    }
+
+    @Override
+    public Long count() {
+
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+
+        CriteriaQuery<Long> query = cb.createQuery(Long.class);
+
+        Root<V> entityRoot = query.from(getEntityType());
+
+        Expression<Long> count = cb.count(entityRoot);
+
+        query.select(count);
+
+        return em.createQuery(query).getSingleResult();
+    }
 }

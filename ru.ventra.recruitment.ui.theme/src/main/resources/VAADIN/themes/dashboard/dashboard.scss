@@ -22,12 +22,11 @@
 @import "components/table.scss";
 @import "components/window.scss";
 
-@import "formlayout/formlayout.scss";
-
 @import "views/schedule.scss";
 @import "views/sales.scss";
 @import "views/reports.scss";
 @import "views/transactions.scss";
+
 
 @mixin dashboard {
 	
@@ -44,8 +43,6 @@
 	@include dashboard-tabsheet;
 	@include dashboard-textfield;
 	@include dashboard-window;
-	
-	@include dashboard-formlayout;
 	
 	@include dashboard-schedule-view;
 	@include dashboard-sales-view;
