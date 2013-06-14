@@ -1,4 +1,4 @@
-package ru.ventra.recruitment.ui;
+package ru.ventra.recruitment.ui.views;
 
 import java.io.File;
 import java.io.InputStream;
@@ -16,7 +16,11 @@ import org.springframework.beans.factory.annotation.Configurable;
 
 import ru.ventra.recruitment.domain.Candidate;
 import ru.ventra.recruitment.service.UserService;
+import ru.ventra.recruitment.ui.CandidateForm;
+import ru.ventra.recruitment.ui.Dialog;
+import ru.ventra.recruitment.ui.Dialog.Mode;
 import ru.ventra.recruitment.ui.Dialog.ResponseEvent;
+import ru.ventra.recruitment.ui.Dialog.ResponseListener;
 import ru.ventra.recruitment.ui.jpacontainer.TransactionalEntityProvider;
 
 import com.vaadin.addon.jpacontainer.JPAContainer;

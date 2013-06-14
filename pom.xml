@@ -307,6 +307,11 @@
       </dependency>
       <dependency>
         <groupId>com.vaadin</groupId>
+        <artifactId>vaadin-client-compiler</artifactId>
+        <version>${com.vaadin}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.vaadin</groupId>
         <artifactId>vaadin-theme-compiler</artifactId>
         <version>${com.vaadin}</version>
       </dependency>
@@ -584,6 +589,20 @@
                       </pluginExecutionFilter>
                       <action>
                         <ignore />
+                      </action>
+                    </pluginExecution>
+                    <pluginExecution>
+                      <pluginExecutionFilter>
+                        <groupId>com.vaadin</groupId>
+                        <artifactId>vaadin-maven-plugin</artifactId>
+                        <versionRange>[${com.vaadin},)</versionRange>
+                        <goals>
+                          <goal>resources</goal>
+                          <goal>update-widgetset</goal>
+                        </goals>
+                      </pluginExecutionFilter>
+                      <action>
+                        <ignore></ignore>
                       </action>
                     </pluginExecution>
                   </pluginExecutions>

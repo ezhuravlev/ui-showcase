@@ -3,6 +3,12 @@ package ru.ventra.recruitment.ui;
 import java.util.HashMap;
 import java.util.logging.Logger;
 
+import ru.ventra.recruitment.ui.views.AbsencesView;
+import ru.ventra.recruitment.ui.views.BundleView;
+import ru.ventra.recruitment.ui.views.CandidatesView;
+import ru.ventra.recruitment.ui.views.DashboardView;
+import ru.ventra.recruitment.ui.views.LoginView;
+
 
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.Title;
@@ -10,15 +16,21 @@ import com.vaadin.navigator.Navigator;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener;
 import com.vaadin.server.Page;
+import com.vaadin.server.ThemeResource;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.shared.ui.label.ContentMode;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.CssLayout;
 import com.vaadin.ui.HorizontalLayout;
+import com.vaadin.ui.Image;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.Layout;
+import com.vaadin.ui.MenuBar;
+import com.vaadin.ui.MenuBar.Command;
+import com.vaadin.ui.MenuBar.MenuItem;
 import com.vaadin.ui.NativeButton;
+import com.vaadin.ui.Notification;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 
@@ -31,10 +43,6 @@ public class RecruitmentUI extends UI implements Button.ClickListener {
 	
 	private CssLayout root;
 	private LoginView loginView;
-	
-	private Button dashbordButton;
-	private Button interviewsButton;
-	private Button reportsButton;
 	
 	private Button selectedButton;
 
@@ -49,7 +57,8 @@ public class RecruitmentUI extends UI implements Button.ClickListener {
 		{ 
         	put("/dashboard", DashboardView.class);
         	put("/interviews", CandidatesView.class); 
-            put("/reports", BundleView.class);
+            put("/reports", BundleView.class); 
+            put("/absences", AbsencesView.class);
         }
     };
 
@@ -65,13 +74,16 @@ public class RecruitmentUI extends UI implements Button.ClickListener {
         bg.addStyleName("login-bg");
         root.addComponent(bg);
 		
-		showLoginView();
+		showLoginView(false);
 		
         setContent(root);
 	}
 	
-	private void showLoginView() {
-
+	private void showLoginView(boolean logout) {
+        if(logout) {
+            root.removeAllComponents();
+        }
+        
         loginView = new LoginView(this);
         
         addStyleName("login");
@@ -146,20 +158,65 @@ public class RecruitmentUI extends UI implements Button.ClickListener {
 		menu.addStyleName("menu");
 		menu.setSizeFull();
 		
-		dashbordButton = createButton("dashboard", "Dashboard<span class=\"badge\">2</span>", "icon-dashboard");
+		Button dashbordButton = createButton("dashboard", "Dashboard<span class=\"badge\">2</span>", "icon-dashboard");
 		menu.addComponent(dashbordButton);		
-		interviewsButton = createButton("interviews", "Interviews", "icon-schedule");
+		Button interviewsButton = createButton("interviews", "Interviews", "icon-schedule");
 		menu.addComponent(interviewsButton);		
-		reportsButton = createButton("reports", "Reports", "icon-reports");
-		menu.addComponent(reportsButton);
+		Button reportsButton = createButton("reports", "Reports", "icon-reports");
+		menu.addComponent(reportsButton);		
+        Button absencesButton = createButton("absences", "Absences", "icon-reports");
+        menu.addComponent(absencesButton);
 		
 		sidebar.addComponent(menu);
 		sidebar.setExpandRatio(menu, 1);		
 		
-		CssLayout user = new CssLayout();
-		user.setHeight(64L, Unit.PIXELS);
+		//CssLayout user = new CssLayout();
+		//user.setHeight(64L, Unit.PIXELS);
 		
-		sidebar.addComponent(user);
+		sidebar.addComponent(new VerticalLayout() {
+            private static final long serialVersionUID = 1L;
+            
+            {
+                setSizeUndefined();
+                addStyleName("user");
+                Image profilePic = new Image(null, new ThemeResource("img/profile-pic.png"));
+                profilePic.setWidth("34px");
+                addComponent(profilePic);
+                Label userName = new Label("Evgeny Zhuravlev");
+                userName.setSizeUndefined();
+                addComponent(userName);
+
+                Command cmd = new Command() {
+                    private static final long serialVersionUID = 1L;
+
+                    @Override
+                    public void menuSelected(MenuItem selectedItem) {
+                        Notification.show("Not implemented in this demo");
+                    }
+                };
+                MenuBar settings = new MenuBar();
+                MenuItem settingsMenu = settings.addItem("", null);
+                settingsMenu.setStyleName("icon-cog");
+                settingsMenu.addItem("Settings", cmd);
+                settingsMenu.addItem("Preferences", cmd);
+                settingsMenu.addSeparator();
+                settingsMenu.addItem("My Account", cmd);
+                addComponent(settings);
+
+                Button exit = new NativeButton("Exit");
+                exit.addStyleName("icon-cancel");
+                exit.setDescription("Sign Out");
+                addComponent(exit);
+                exit.addClickListener(new Button.ClickListener() {
+                    private static final long serialVersionUID = 1L;
+
+                    @Override
+                    public void buttonClick(ClickEvent event) {
+                        showLoginView(true);
+                    }
+                });
+            }
+        });
 		
 		viewport.addComponent(sidebar);
 	}

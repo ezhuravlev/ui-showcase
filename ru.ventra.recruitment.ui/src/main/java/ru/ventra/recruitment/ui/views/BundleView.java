@@ -1,4 +1,4 @@
-package ru.ventra.recruitment.ui;
+package ru.ventra.recruitment.ui.views;
 
 import java.util.ArrayList;
 import java.util.List;

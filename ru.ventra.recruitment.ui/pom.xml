@@ -96,6 +96,10 @@
     </dependency>
     <dependency>
       <groupId>com.vaadin</groupId>
+      <artifactId>vaadin-client-compiler</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.vaadin</groupId>
       <artifactId>vaadin-client-compiled</artifactId>
     </dependency>
     <dependency>
@@ -133,6 +137,22 @@
       <artifactId>com.springsource.javax.transaction</artifactId>
       <scope>provided</scope>
     </dependency>
+    
+    <dependency>
+      <groupId>com.vaadin.addon</groupId>
+      <artifactId>ru.ventra.com.vaadin.addon.calendar</artifactId>
+      <version>2.0.1</version>
+    </dependency>
+    <dependency>
+      <groupId>com.vaadin.addon</groupId>
+      <artifactId>ru.ventra.com.vaadin.addon.charts</artifactId>
+      <version>1.0.1</version>
+    </dependency>
+    <dependency>
+      <groupId>org.vaadin.addons</groupId>
+      <artifactId>cssinject</artifactId>
+      <version>2.0.3</version>
+    </dependency>
 
     <dependency>
       <groupId>ru.ventra.recruitment</groupId>
@@ -169,6 +189,45 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-dependency-plugin</artifactId>
+      </plugin>      
+      <plugin>
+        <artifactId>maven-clean-plugin</artifactId>
+        <configuration>
+          <filesets>
+            <fileset>
+              <directory>src/main/webapp/VAADIN/widgetsets</directory>
+            </fileset>
+            <fileset>
+              <directory>src/main/webapp/VAADIN/gwt-unitCache</directory>
+            </fileset>
+          </filesets>
+        </configuration>
+      </plugin>      
+      <plugin>
+        <groupId>com.vaadin</groupId>
+        <artifactId>vaadin-maven-plugin</artifactId>
+        <version>${com.vaadin}</version>
+        <configuration>
+          <extraJvmArgs>-Xmx512M -Xss1024k</extraJvmArgs>
+          <webappDirectory>${basedir}/src/main/webapp/VAADIN/widgetsets</webappDirectory>
+          <hostedWebapp>${basedir}/src/main/webapp/VAADIN/widgetsets</hostedWebapp>
+          <noServer>true</noServer>
+          <draftCompile>false</draftCompile>
+          <style>OBF</style>
+          <compileReport>true</compileReport>
+          <runTarget>http://localhost:8080/</runTarget>
+        </configuration>
+        <executions>
+          <execution>
+            <configuration>
+            </configuration>
+            <goals>
+              <goal>resources</goal>
+              <goal>update-widgetset</goal>
+              <goal>compile</goal>
+            </goals>
+          </execution>
+        </executions>
       </plugin>
       <plugin>
         <groupId>org.apache.felix</groupId>

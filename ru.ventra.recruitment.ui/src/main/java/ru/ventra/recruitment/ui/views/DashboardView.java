@@ -1,4 +1,4 @@
-package ru.ventra.recruitment.ui;
+package ru.ventra.recruitment.ui.views;
 
 import java.text.DecimalFormat;
 
@@ -14,7 +14,6 @@ import com.vaadin.event.ShortcutAction.KeyCode;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.shared.ui.MarginInfo;
-import com.vaadin.shared.ui.label.ContentMode;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
@@ -34,11 +33,11 @@ import com.vaadin.ui.Window;
 
 @Configurable
 public class DashboardView extends VerticalLayout implements View {
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
     Table t;
-	
-	public DashboardView() {
+
+    public DashboardView() {
 
         setSizeFull();
         addStyleName("dashboard-view");
@@ -63,9 +62,11 @@ public class DashboardView extends VerticalLayout implements View {
         notify.addStyleName("icon-only");
         notify.addStyleName("icon-bell");
         notify.addClickListener(new Button.ClickListener() {
+            private static final long serialVersionUID = 1L;
+
             @Override
             public void buttonClick(ClickEvent event) {
-                //((RecruitmentUI) getUI()).clearDashboardButtonBadge();
+                // ((RecruitmentUI) getUI()).clearDashboardButtonBadge();
                 event.getButton().removeStyleName("unread");
                 event.getButton().setDescription("Notifications");
 
@@ -76,13 +77,14 @@ public class DashboardView extends VerticalLayout implements View {
                     getUI().addWindow(notifications);
                     notifications.focus();
                     ((CssLayout) getUI().getContent()).addLayoutClickListener(new LayoutClickListener() {
-                                @Override
-                                public void layoutClick(LayoutClickEvent event) {
-                                    notifications.close();
-                                    ((CssLayout) getUI().getContent())
-                                            .removeLayoutClickListener(this);
-                                }
-                            });
+                        private static final long serialVersionUID = 1L;
+
+                        @Override
+                        public void layoutClick(LayoutClickEvent event) {
+                            notifications.close();
+                            ((CssLayout) getUI().getContent()).removeLayoutClickListener(this);
+                        }
+                    });
                 }
 
             }
@@ -96,6 +98,8 @@ public class DashboardView extends VerticalLayout implements View {
         top.addComponent(edit);
         edit.setDescription("Edit Dashboard");
         edit.addClickListener(new Button.ClickListener() {
+            private static final long serialVersionUID = 1L;
+
             @Override
             public void buttonClick(ClickEvent event) {
                 final Window w = new Window("Edit Dashboard");
@@ -108,9 +112,13 @@ public class DashboardView extends VerticalLayout implements View {
                 getUI().addWindow(w);
 
                 w.setContent(new VerticalLayout() {
+                    private static final long serialVersionUID = 1L;
+
                     TextField name = new TextField("Dashboard Name");
                     {
                         addComponent(new FormLayout() {
+                            private static final long serialVersionUID = 1L;
+
                             {
                                 setSizeUndefined();
                                 setMargin(true);
@@ -122,6 +130,8 @@ public class DashboardView extends VerticalLayout implements View {
                         });
 
                         addComponent(new HorizontalLayout() {
+                            private static final long serialVersionUID = 1L;
+
                             {
                                 setMargin(true);
                                 setSpacing(true);
@@ -130,6 +140,8 @@ public class DashboardView extends VerticalLayout implements View {
 
                                 Button cancel = new Button("Cancel");
                                 cancel.addClickListener(new Button.ClickListener() {
+                                    private static final long serialVersionUID = 1L;
+
                                     @Override
                                     public void buttonClick(ClickEvent event) {
                                         w.close();
@@ -138,13 +150,14 @@ public class DashboardView extends VerticalLayout implements View {
                                 cancel.setClickShortcut(KeyCode.ESCAPE, null);
                                 addComponent(cancel);
                                 setExpandRatio(cancel, 1);
-                                setComponentAlignment(cancel,
-                                        Alignment.TOP_RIGHT);
+                                setComponentAlignment(cancel, Alignment.TOP_RIGHT);
 
                                 Button ok = new Button("Save");
                                 ok.addStyleName("wide");
                                 ok.addStyleName("default");
                                 ok.addClickListener(new Button.ClickListener() {
+                                    private static final long serialVersionUID = 1L;
+
                                     @Override
                                     public void buttonClick(ClickEvent event) {
                                         title.setValue(name.getValue());
@@ -187,6 +200,8 @@ public class DashboardView extends VerticalLayout implements View {
         setExpandRatio(row, 2);
 
         t = new Table() {
+            private static final long serialVersionUID = 1L;
+
             @Override
             protected String formatPropertyValue(Object rowId, Object colId, Property<?> property) {
                 if (colId.equals("Revenue")) {
@@ -214,41 +229,37 @@ public class DashboardView extends VerticalLayout implements View {
         row.addComponent(createPanel(t));
 
         row.addComponent(createPanel(new TopSixTheatersChart()));
-        /*super();
-        
-        setSizeFull();
-		setStyleName("dashboard-view");
-		
-		HorizontalLayout toolbar = new HorizontalLayout();
-		toolbar.setStyleName("toolbar");
-		toolbar.setWidth(100L, Unit.PERCENTAGE);
-		toolbar.setHeight(76L, Unit.PIXELS);
-		toolbar.setSpacing(true);
-		addComponent(toolbar);
-		
-		Label h1 = new Label("My Dashboard", ContentMode.HTML);
-		h1.setStyleName("h1");
-		toolbar.addComponent(h1);
-		toolbar.setExpandRatio(h1, 100);
-		
-		Button notifications = new Button("2");
-		notifications.setStyleName("notifications unread icon-bell icon-only");
-		toolbar.addComponent(notifications);
-		
-		Button iconEdit = new Button();
-		iconEdit.setStyleName("icon-edit icon-only");
-		toolbar.addComponent(iconEdit);
-		
-		HorizontalLayout dasboardRow1 = new HorizontalLayout();
-		dasboardRow1.setSizeFull();
-		addComponent(dasboardRow1);
-		setExpandRatio(dasboardRow1, 1);
-		
-		HorizontalLayout dasboardRow2 = new HorizontalLayout();
-		dasboardRow2.setSizeFull();
-		addComponent(dasboardRow2);
-		setExpandRatio(dasboardRow2, 1);*/
-	}
+        /*
+         * super();
+         * 
+         * setSizeFull(); setStyleName("dashboard-view");
+         * 
+         * HorizontalLayout toolbar = new HorizontalLayout();
+         * toolbar.setStyleName("toolbar"); toolbar.setWidth(100L,
+         * Unit.PERCENTAGE); toolbar.setHeight(76L, Unit.PIXELS);
+         * toolbar.setSpacing(true); addComponent(toolbar);
+         * 
+         * Label h1 = new Label("My Dashboard", ContentMode.HTML);
+         * h1.setStyleName("h1"); toolbar.addComponent(h1);
+         * toolbar.setExpandRatio(h1, 100);
+         * 
+         * Button notifications = new Button("2");
+         * notifications.setStyleName("notifications unread icon-bell icon-only"
+         * ); toolbar.addComponent(notifications);
+         * 
+         * Button iconEdit = new Button();
+         * iconEdit.setStyleName("icon-edit icon-only");
+         * toolbar.addComponent(iconEdit);
+         * 
+         * HorizontalLayout dasboardRow1 = new HorizontalLayout();
+         * dasboardRow1.setSizeFull(); addComponent(dasboardRow1);
+         * setExpandRatio(dasboardRow1, 1);
+         * 
+         * HorizontalLayout dasboardRow2 = new HorizontalLayout();
+         * dasboardRow2.setSizeFull(); addComponent(dasboardRow2);
+         * setExpandRatio(dasboardRow2, 1);
+         */
+    }
 
     private CssLayout createPanel(Component content) {
         CssLayout panel = new CssLayout();
@@ -263,6 +274,8 @@ public class DashboardView extends VerticalLayout implements View {
         configure.setDescription("Configure");
         configure.addStyleName("small");
         configure.addClickListener(new Button.ClickListener() {
+            private static final long serialVersionUID = 1L;
+
             @Override
             public void buttonClick(ClickEvent event) {
                 Notification.show("Not implemented in this demo");
@@ -276,8 +289,8 @@ public class DashboardView extends VerticalLayout implements View {
 
     @Override
     public void enter(ViewChangeEvent event) {
-        //DataProvider dataProvider = ((DashboardUI) getUI()).dataProvider;
-        //t.setContainerDataSource(dataProvider.getRevenueByTitle());
+        // DataProvider dataProvider = ((DashboardUI) getUI()).dataProvider;
+        // t.setContainerDataSource(dataProvider.getRevenueByTitle());
     }
 
     Window notifications;
@@ -297,19 +310,16 @@ public class DashboardView extends VerticalLayout implements View {
         notifications.setPositionY(event.getClientY() - event.getRelativeY());
         notifications.setCloseShortcut(KeyCode.ESCAPE, null);
 
-        /*Label label = new Label(
-                "<hr><b>"
-                        + Generator.randomFirstName()
-                        + " "
-                        + Generator.randomLastName()
-                        + " created a new report</b><br><span>25 minutes ago</span><br>"
-                        + Generator.randomText(18), ContentMode.HTML);
-        l.addComponent(label);
-
-        label = new Label("<hr><b>" + Generator.randomFirstName() + " "
-                + Generator.randomLastName()
-                + " changed the schedule</b><br><span>2 days ago</span><br>"
-                + Generator.randomText(10), ContentMode.HTML);
-        l.addComponent(label);*/
+        /*
+         * Label label = new Label( "<hr><b>" + Generator.randomFirstName() +
+         * " " + Generator.randomLastName() +
+         * " created a new report</b><br><span>25 minutes ago</span><br>" +
+         * Generator.randomText(18), ContentMode.HTML); l.addComponent(label);
+         * 
+         * label = new Label("<hr><b>" + Generator.randomFirstName() + " " +
+         * Generator.randomLastName() +
+         * " changed the schedule</b><br><span>2 days ago</span><br>" +
+         * Generator.randomText(10), ContentMode.HTML); l.addComponent(label);
+         */
     }
 }
