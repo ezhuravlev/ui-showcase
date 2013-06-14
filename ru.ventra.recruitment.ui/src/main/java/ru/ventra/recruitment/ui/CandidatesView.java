@@ -83,6 +83,8 @@ public class CandidatesView extends VerticalLayout implements View, ClickListene
 	
 	@PostConstruct
 	protected void init() {
+	    
+	    log.info("@PostConstruct");
 		
 		em = userService.getEntityManager();
 		

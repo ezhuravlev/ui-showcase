@@ -1,6 +1,5 @@
-package ru.ventra.recruitment.ui.security;
+package ru.ventra.recruitment.ui;
 
-import ru.ventra.recruitment.ui.RecruitmentUI;
 
 import com.vaadin.event.ShortcutListener;
 import com.vaadin.event.ShortcutAction.KeyCode;

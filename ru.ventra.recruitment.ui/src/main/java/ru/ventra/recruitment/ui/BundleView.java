@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Configurable;
 
 import com.vaadin.data.util.BeanContainer;
+import com.vaadin.navigator.View;
+import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.shared.ui.label.ContentMode;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.HorizontalLayout;
@@ -20,7 +22,7 @@ import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 
 @Configurable
-public class BundleView extends VerticalLayout implements Table.ColumnGenerator {
+public class BundleView extends VerticalLayout implements View, Table.ColumnGenerator {
 	private static final long serialVersionUID = 1L;
 	
 	@Autowired
@@ -126,4 +128,9 @@ public class BundleView extends VerticalLayout implements Table.ColumnGenerator 
 		
 		addComponent(toolbar);
 	}
+
+    @Override
+    public void enter(ViewChangeEvent event) {
+        // TODO Auto-generated method stub
+    }
 }

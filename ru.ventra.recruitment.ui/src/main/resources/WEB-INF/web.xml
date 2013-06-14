@@ -109,6 +109,14 @@
             <param-name>UI</param-name>
             <param-value>ru.ventra.recruitment.ui.RecruitmentUI</param-value>
         </init-param>
+        <init-param>
+          <param-name>UIProvider</param-name>
+          <param-value>ru.ventra.recruitment.ui.RecruitmentUIProvider</param-value>
+        </init-param>
+        <init-param>
+          <param-name>widgetset</param-name>
+          <param-value>ru.ventra.recruitment.ui.DashboardWidgetSet</param-value>
+        </init-param>
     </servlet>
     <servlet-mapping>
         <servlet-name>Vaadin Application Servlet</servlet-name>
