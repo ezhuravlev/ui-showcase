@@ -8,7 +8,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Configurable;
 import org.vaadin.cssinject.CSSInject;
 
-import com.google.gson.JsonObject;
 import com.vaadin.addon.calendar.event.CalendarEvent;
 import com.vaadin.addon.calendar.event.CalendarEventProvider;
 import com.vaadin.addon.calendar.ui.Calendar;
@@ -41,7 +40,6 @@ import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.TabSheet;
-import com.vaadin.ui.Table;
 import com.vaadin.ui.Table.TableTransferable;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
@@ -239,8 +237,8 @@ public class AbsencesView extends CssLayout implements View {
     void createEventsForDay(Date day) {
         List<Movie> movies = new ArrayList<Movie>() {
             {
-                add(new Movie("11", "12", "13", "14", new JsonObject(), new JsonObject()));
-                add(new Movie("21", "22", "23", "24", new JsonObject(), new JsonObject()));
+                add(new Movie("11", "12", "13", "14", new Object(), new Object()));
+                add(new Movie("21", "22", "23", "24", new Object(), new Object()));
             }
         };
         boolean[] used = new boolean[movies.size()];
@@ -425,17 +423,17 @@ public class AbsencesView extends CssLayout implements View {
         public int score;
         public double sortScore = 0;
 
-        Movie(String title, String synopsis, String thumbUrl, String posterUrl, JsonObject releaseDates, JsonObject critics) {
+        Movie(String title, String synopsis, String thumbUrl, String posterUrl, Object releaseDates, Object critics) {
             this.title = title;
             this.synopsis = synopsis;
             this.thumbUrl = thumbUrl;
             this.posterUrl = posterUrl;
             this.duration = (int) ((1 + Math.round(Math.random())) * 60 + 45 + (Math.random() * 30));
             try {
-                String datestr = releaseDates.get("theater").getAsString();
+                String datestr = "sdfs";//releaseDates.get("theater").getAsString();
                 SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
                 releaseDate = df.parse(datestr);
-                score = critics.get("critics_score").getAsInt();
+                score = 1;//critics.get("critics_score").getAsInt();
                 sortScore = 0.6 / (0.01 + (System.currentTimeMillis() - releaseDate.getTime()) / (1000 * 60 * 60 * 24 * 5));
                 sortScore += 10.0 / (101 - score);
             } catch (Exception e) {

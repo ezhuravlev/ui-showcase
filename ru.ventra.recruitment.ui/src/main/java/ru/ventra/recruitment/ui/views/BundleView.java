@@ -5,9 +5,6 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 
-import org.osgi.framework.Bundle;
-import org.osgi.framework.BundleContext;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Configurable;
 
 import com.vaadin.data.util.BeanContainer;
@@ -24,9 +21,6 @@ import com.vaadin.ui.VerticalLayout;
 @Configurable
 public class BundleView extends VerticalLayout implements View, Table.ColumnGenerator {
 	private static final long serialVersionUID = 1L;
-	
-	@Autowired
-	private BundleContext ctx;
 	
 	private Table table;
 
@@ -52,21 +46,21 @@ public class BundleView extends VerticalLayout implements View, Table.ColumnGene
 	@PostConstruct
 	protected void init() {
 		
-		Bundle[] allBundles = ctx.getBundles();
+	    Object[] allBundles = new Object []{};
 		
-		List<Bundle> bundleList = new ArrayList<Bundle>();
+		List<Object> bundleList = new ArrayList<Object>();
 	
 		// Hack for adding only our relevant bundles to the list
-		for (Bundle bundle : allBundles) {
+		for (Object bundle : allBundles) {
 			
-			String symbolicName = bundle.getSymbolicName();
+			String symbolicName = bundle.getClass().toString();
 			
 			if (symbolicName.startsWith("ru.ventra.recruitment")) {
 				bundleList.add(bundle);
 			}
 		}
 		
-		final BeanContainer<String, Bundle> container = new BeanContainer<String, Bundle>(Bundle.class);
+		final BeanContainer<String, Object> container = new BeanContainer<String, Object>(Object.class);
 		container.setBeanIdProperty("symbolicName");
 		container.addAll(bundleList);
 		
@@ -79,9 +73,9 @@ public class BundleView extends VerticalLayout implements View, Table.ColumnGene
 	public Object generateCell(Table source, Object itemId, Object columnId) {
 		
 		@SuppressWarnings("unchecked")
-		BeanContainer<String, Bundle> container = (BeanContainer<String, Bundle>) source.getContainerDataSource();
+		BeanContainer<String, Object> container = (BeanContainer<String, Object>) source.getContainerDataSource();
         
-        Bundle bundle = container.getItem(itemId).getBean();
+		Object bundle = container.getItem(itemId).getBean();
         
         if(columnId.equals("state")) {
         	return getStateString(bundle);
@@ -90,19 +84,8 @@ public class BundleView extends VerticalLayout implements View, Table.ColumnGene
         }
 	}
 	
-	private String getStateString(Bundle bundle) {
-		switch (bundle.getState()) {
-			case Bundle.ACTIVE:
-				return "ACTIVE";
-			case Bundle.INSTALLED:
-				return "INSTALLED";
-			case Bundle.RESOLVED:
-				return "RESOLVED";
-			case Bundle.UNINSTALLED:
-				return "UNINSTALLED";
-			default:
-				return "UNKNOWN";
-		}
+	private String getStateString(Object bundle) {
+        return "UNKNOWN";
 	}
 	
 	private void createToolbar() {

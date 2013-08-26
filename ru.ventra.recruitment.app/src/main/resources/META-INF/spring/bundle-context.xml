@@ -1,38 +1,78 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	   xmlns:context="http://www.springframework.org/schema/context"
-	   xmlns:p="http://www.springframework.org/schema/p"
-	   xmlns:tx="http://www.springframework.org/schema/tx"
-	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	   xsi:schemaLocation="http://www.springframework.org/schema/beans 
-						   http://www.springframework.org/schema/beans/spring-beans.xsd         
-	   					   http://www.springframework.org/schema/context 
-	   					   http://www.springframework.org/schema/context/spring-context.xsd
-	   					   http://www.springframework.org/schema/tx 
-	   					   http://www.springframework.org/schema/tx/spring-tx.xsd">
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:osgix="http://www.eclipse.org/gemini/blueprint/schema/blueprint-compendium" 
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans 
+                           http://www.springframework.org/schema/beans/spring-beans.xsd
+                           http://www.springframework.org/schema/context
+                           http://www.springframework.org/schema/context/spring-context.xsd
+                           http://www.eclipse.org/gemini/blueprint/schema/blueprint-compendium
+                           http://www.eclipse.org/gemini/blueprint/schema/blueprint-compendium/gemini-blueprint-compendium.xsd
+                           http://www.springframework.org/schema/tx
+                           http://www.springframework.org/schema/tx/spring-tx.xsd">
 
-	<context:property-placeholder location="classpath*:META-INF/*.properties" />
-	
-	<context:annotation-config />
-	
-	<context:load-time-weaver aspectj-weaving="on" />
-	
-	<context:component-scan base-package="ru.ventra.recruitment" />
-		
-	<bean id="liquibase" 
-		  class="liquibase.integration.spring.SpringLiquibase"
-		  p:dataSource-ref="dataSource"
-		  p:changeLog="classpath:META-INF/db/changeLog-master.xml"
-		  p:contexts="test, production" />
+  <osgix:cm-properties id="jdbcProperties" persistent-id="ru.ventra.recruitment.jdbc">
+    <prop key="database.driverClassName">org.h2.Driver</prop>
+    <prop key="database.url">jdbc:h2:mem:recruitment_db</prop>
+    <prop key="database.username">sa</prop>
+    <prop key="database.password"></prop>
+    <prop key="database.testQuery">SELECT 1</prop>
+    <prop key="database.minPoolSize">0</prop>
+    <prop key="database.maxPoolSize">10</prop>
+  </osgix:cm-properties>
+  <osgix:cm-properties id="jpaProperties" persistent-id="ru.ventra.recruitment.jpa">
+    <prop key="eclipselink.target-database">org.eclipse.persistence.platform.database.H2Platform</prop>
+    <prop key="eclipselink.jdbc.uppercase-columns">false</prop>
+    <prop key="eclipselink.logging.level">FINEST</prop>
+    <prop key="eclipselink.logging.level.sql">FINE</prop>
+    <prop key="eclipselink.logging.parameters">true</prop>    
+    <prop key="eclipselink.logging.timestamp">false</prop>
+    <prop key="eclipselink.logging.thread">false</prop>
+    <prop key="eclipselink.logging.session">false</prop>
+    <prop key="eclipselink.logging.exceptions">false</prop>
+    <prop key="eclipselink.logging.connection">false</prop>
+  </osgix:cm-properties>
 
-	<bean id="entityManagerFactory" 
-		  class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"
-		  p:dataSource-ref="dataSource"
-		  p:persistenceUnitName="ru.ventra.recruitment" />
+  <context:property-placeholder properties-ref="jdbcProperties" />
 
-	<bean id="txManager" 
-		  class="org.springframework.orm.jpa.JpaTransactionManager"
-		  p:entityManagerFactory-ref="entityManagerFactory" />
+  <context:annotation-config />
 
-	<tx:annotation-driven mode="aspectj" transaction-manager="txManager" />
+  <context:component-scan base-package="ru.ventra.recruitment" />
+
+  <context:load-time-weaver aspectj-weaving="on" />
+    
+  <bean id="dataSource" 
+        class="org.apache.commons.dbcp.BasicDataSource" 
+        destroy-method="close"
+        p:driverClassName="${database.driverClassName}"
+        p:url="${database.url}"
+        p:username="${database.username}"
+        p:password="${database.password}"
+        p:validationQuery="${database.testQuery}"
+        p:initialSize="${database.minPoolSize}" />
+        
+  <bean id="liquibase" 
+        class="liquibase.integration.spring.SpringLiquibase"
+        p:dataSource-ref="dataSource"
+        p:changeLog="classpath:META-INF/db/changeLog-master.xml"
+        p:contexts="test, production" />
+
+  <bean id="jpaVendorAdapter" class="org.springframework.orm.jpa.vendor.EclipseLinkJpaVendorAdapter" />
+  <bean id="loadTimeWeaver" class="org.springframework.instrument.classloading.InstrumentationLoadTimeWeaver" />
+  <bean id="entityManagerFactory" 
+        class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"
+        p:jpaVendorAdapter-ref="jpaVendorAdapter"
+        p:jpaProperties-ref="jpaProperties"
+        p:loadTimeWeaver-ref="loadTimeWeaver"
+        p:dataSource-ref="dataSource"
+        p:packagesToScan="ru.ventra.recruitment.*" />
+
+  <bean id="transactionManager" 
+        class="org.springframework.orm.jpa.JpaTransactionManager"
+        p:entityManagerFactory-ref="entityManagerFactory" />
+
+  <tx:annotation-driven transaction-manager="transactionManager" mode="aspectj" />
 </beans>

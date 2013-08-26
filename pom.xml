@@ -9,7 +9,6 @@
   <packaging>pom</packaging>
 
   <modules>
-    <module>ru.ventra.recruitment.db</module>
     <module>ru.ventra.recruitment.app</module>
     <module>ru.ventra.recruitment.ui</module>
     <module>ru.ventra.recruitment.ui.theme</module>
@@ -43,6 +42,11 @@
 
 
 
+    <javax.validation>1.0.0.GA</javax.validation>
+    
+    <org.mockito>1.9.0</org.mockito>
+    <org.slf4j>1.7.2</org.slf4j>
+
     <com.atomikos.transactions-osgi>3.8.0</com.atomikos.transactions-osgi>
     <com.vaadin>7.0.0</com.vaadin>
     <javax.persistence>2.0.4.v201112161009</javax.persistence>
@@ -50,11 +54,10 @@
     <javax.servlet.jsp>2.2.0.v201103241009</javax.servlet.jsp>
     <javax.servlet.jsp.jstl>1.2.0.v20110728</javax.servlet.jsp.jstl>
     <javax.transaction>1.1.0</javax.transaction>
-    <javax.validation>1.1.0.Beta2</javax.validation>
     <org.aopalliance>1.0.0</org.aopalliance>
     <org.aspectj>1.6.12.RELEASE</org.aspectj>
     <org.aspectj.weaver>1.6.12.RELEASE</org.aspectj.weaver>
-    <org.apache.commons.io>1.4</org.apache.commons.io>
+    <org.apache.commons.io>2.4</org.apache.commons.io>
     <org.apache.commons.collections>3.2.1</org.apache.commons.collections>
     <org.apache.commons.dbcp>1.2.2.osgi</org.apache.commons.dbcp>
     <org.apache.taglibs.standard>1.1.2</org.apache.taglibs.standard>
@@ -66,10 +69,12 @@
     <com.mysql.jdbc>5.1.21</com.mysql.jdbc>
     <org.junit>4.7.0</org.junit>
     <org.liquibase>2.0.5</org.liquibase>
-    <org.slf4j>1.5.8</org.slf4j>
     <org.springframework>3.1.0.RELEASE</org.springframework>
     <org.springframework.security>3.1.3.RELEASE</org.springframework.security>
     <ru.ventra.com.vaadin.addon.jpacontainer>3.0.0.AGPL</ru.ventra.com.vaadin.addon.jpacontainer>
+    <ru.ventra.com.vaadin.addon.calendar>2.0.1</ru.ventra.com.vaadin.addon.calendar>
+    <ru.ventra.com.vaadin.addon.charts>1.0.1</ru.ventra.com.vaadin.addon.charts>
+    <ru.ventra.org.vaadin.addons.cssinject>2.0.3</ru.ventra.org.vaadin.addons.cssinject>
     <org.liquibase.eclipselink>0.2.1</org.liquibase.eclipselink>
   </properties>
 
@@ -77,25 +82,52 @@
 
   <dependencyManagement>
     <dependencies>
-
-      <!-- JSP -->
+    
+      <!-- Commons -->
+      <dependency>
+        <groupId>commons-io</groupId>
+        <artifactId>commons-io</artifactId>
+        <version>${org.apache.commons.io}</version>
+      </dependency>
+    
+      <!-- Servlet -->
       <dependency>
         <groupId>javax.servlet</groupId>
         <artifactId>javax.servlet</artifactId>
         <version>${javax.servlet}</version>
         <scope>provided</scope>
       </dependency>
+      <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>org.springframework.web.servlet</artifactId>
+        <version>${org.springframework}</version>
+        <scope>provided</scope>
+      </dependency>
+    
+      <!-- JSP/JSTL-->
+      <dependency>
+        <groupId>javax.servlet</groupId>
+        <artifactId>javax.servlet.jsp</artifactId>
+        <version>${javax.servlet.jsp}</version>
+        <scope>provided</scope>
+      </dependency>
+      <dependency>
+        <groupId>javax.servlet</groupId>
+        <artifactId>com.springsource.javax.servlet.jsp.jstl</artifactId>
+        <version>${javax.servlet.jsp.jstl}</version>
+        <scope>provided</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.taglibs</groupId>
+        <artifactId>com.springsource.org.apache.taglibs.standard</artifactId>
+        <version>${org.apache.taglibs.standard}</version>
+        <scope>provided</scope>
+      </dependency>
 
       <!-- Spring -->
       <dependency>
         <groupId>org.springframework</groupId>
-        <artifactId>org.springframework.aop</artifactId>
-        <version>${org.springframework}</version>
-        <scope>provided</scope>
-      </dependency>
-      <dependency>
-        <groupId>org.springframework</groupId>
-        <artifactId>org.springframework.aspects</artifactId>
+        <artifactId>org.springframework.core</artifactId>
         <version>${org.springframework}</version>
         <scope>provided</scope>
       </dependency>
@@ -113,42 +145,26 @@
       </dependency>
       <dependency>
         <groupId>org.springframework</groupId>
-        <artifactId>org.springframework.core</artifactId>
-        <version>${org.springframework}</version>
-        <scope>provided</scope>
-      </dependency>
-      <dependency>
-        <groupId>org.springframework</groupId>
-        <artifactId>org.springframework.transaction</artifactId>
-        <version>${org.springframework}</version>
-        <scope>provided</scope>
-      </dependency>
-      <dependency>
-        <groupId>org.springframework</groupId>
-        <artifactId>org.springframework.orm</artifactId>
-        <version>${org.springframework}</version>
-        <scope>provided</scope>
-      </dependency>
-      <dependency>
-        <groupId>org.springframework</groupId>
         <artifactId>org.springframework.web</artifactId>
         <version>${org.springframework}</version>
         <scope>provided</scope>
       </dependency>
-      <dependency>
-        <groupId>org.springframework</groupId>
-        <artifactId>org.springframework.web.servlet</artifactId>
-        <version>${org.springframework}</version>
-        <scope>provided</scope>
-      </dependency>
 
-      <!-- AspectJ -->
+      <!-- AOP -->
       <dependency>
         <groupId>org.aopalliance</groupId>
         <artifactId>com.springsource.org.aopalliance</artifactId>
         <version>${org.aopalliance}</version>
         <scope>provided</scope>
       </dependency>
+      <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>org.springframework.aop</artifactId>
+        <version>${org.springframework}</version>
+        <scope>provided</scope>
+      </dependency>
+      
+      <!-- AspectJ -->
       <dependency>
         <groupId>org.aspectj</groupId>
         <artifactId>com.springsource.org.aspectj.runtime</artifactId>
@@ -158,6 +174,18 @@
         <groupId>org.aspectj</groupId>
         <artifactId>com.springsource.org.aspectj.weaver</artifactId>
         <version>${org.aspectj}</version>
+        <scope>provided</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>org.springframework.aspects</artifactId>
+        <version>${org.springframework}</version>
+        <scope>provided</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>org.springframework.instrument</artifactId>
+        <version>${org.springframework}</version>
         <scope>provided</scope>
       </dependency>
 
@@ -187,35 +215,54 @@
         <artifactId>org.springframework.security.ldap</artifactId>
         <version>${org.springframework.security}</version>
       </dependency>
-
-      <!-- DB/ORM -->
+    
+      <!-- JDBC -->
       <dependency>
         <groupId>com.h2database</groupId>
         <artifactId>h2</artifactId>
         <version>${org.h2}</version>
+        <scope>runtime</scope>
+        <optional>true</optional>
       </dependency>
       <dependency>
         <groupId>org.apache.commons</groupId>
         <artifactId>com.springsource.org.apache.commons.dbcp</artifactId>
         <version>${org.apache.commons.dbcp}</version>
+        <scope>runtime</scope>
       </dependency>
-
+      
+      <!-- Database Migration -->
+      <dependency>
+        <groupId>org.liquibase</groupId>
+        <artifactId>liquibase-osgi</artifactId>
+        <version>${org.liquibase}</version>
+        <exclusions>
+          <exclusion>
+            <groupId>org.liquibase</groupId>
+            <artifactId>liquibase-core</artifactId>
+          </exclusion>
+        </exclusions>
+      </dependency>
+    
+      <!-- Transactions -->
+      <dependency>
+        <groupId>javax.transaction</groupId>
+        <artifactId>com.springsource.javax.transaction</artifactId>
+        <version>${javax.transaction}</version>
+      </dependency>
       <dependency>
         <groupId>com.atomikos</groupId>
         <artifactId>transactions-osgi</artifactId>
         <version>${com.atomikos.transactions-osgi}</version>
       </dependency>
       <dependency>
-        <groupId>javax.transaction</groupId>
-        <artifactId>com.springsource.javax.transaction</artifactId>
-        <version>${javax.transaction}</version>
+        <groupId>org.springframework</groupId>
+        <artifactId>org.springframework.transaction</artifactId>
+        <version>${org.springframework}</version>
+        <scope>provided</scope>
       </dependency>
-
-      <dependency>
-        <groupId>org.liquibase</groupId>
-        <artifactId>liquibase-osgi</artifactId>
-        <version>${org.liquibase}</version>
-      </dependency>
+      
+      <!-- ORM/JPA -->
       <dependency>
         <groupId>org.eclipse.persistence</groupId>
         <artifactId>javax.persistence</artifactId>
@@ -228,49 +275,42 @@
         <version>${org.eclipse.persistence}</version>
       </dependency>
       <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>org.springframework.orm</artifactId>
+        <version>${org.springframework}</version>
+        <scope>provided</scope>
+      </dependency>
+    
+      <!-- Bean Validation -->
+      <dependency>
+        <groupId>javax.validation</groupId>
+        <artifactId>com.springsource.javax.validation</artifactId>
+        <version>${javax.validation}</version>
+      </dependency>
+      <dependency>
         <groupId>org.hibernate</groupId>
         <artifactId>hibernate-validator</artifactId>
         <version>${org.hibernate.validator}</version>
-      </dependency>
-      <dependency>
-        <groupId>javax.validation</groupId>
-        <artifactId>validation-api</artifactId>
-        <version>${javax.validation}</version>
-      </dependency>
-
-      <!-- JSP/Tiles -->
-      <dependency>
-        <groupId>org.apache.tiles</groupId>
-        <artifactId>tiles-jsp</artifactId>
-        <version>${org.apache.tiles}</version>
         <exclusions>
+          <!-- replaced by javax.validation:com.springsource.javax.validation -->
           <exclusion>
-            <groupId>org.slf4j</groupId>
-            <artifactId>jcl-over-slf4j</artifactId>
+            <groupId>javax.validation</groupId>
+            <artifactId>validation-api</artifactId>
           </exclusion>
         </exclusions>
       </dependency>
+      
+      <!-- Logging -->
       <dependency>
-        <groupId>commons-collections</groupId>
-        <artifactId>commons-collections</artifactId>
-        <version>${org.apache.commons.collections}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.taglibs</groupId>
-        <artifactId>com.springsource.org.apache.taglibs.standard</artifactId>
-        <version>${org.apache.taglibs.standard}</version>
+        <groupId>org.slf4j</groupId>
+        <artifactId>slf4j-api</artifactId>
+        <version>${org.slf4j}</version>
         <scope>provided</scope>
       </dependency>
       <dependency>
-        <groupId>javax.servlet</groupId>
-        <artifactId>javax.servlet.jsp</artifactId>
-        <version>${javax.servlet.jsp}</version>
-        <scope>provided</scope>
-      </dependency>
-      <dependency>
-        <groupId>javax.servlet</groupId>
-        <artifactId>com.springsource.javax.servlet.jsp.jstl</artifactId>
-        <version>${javax.servlet.jsp.jstl}</version>
+        <groupId>org.slf4j</groupId>
+        <artifactId>jul-to-slf4j</artifactId>
+        <version>${org.slf4j}</version>
         <scope>provided</scope>
       </dependency>
 
@@ -279,6 +319,12 @@
         <groupId>com.vaadin</groupId>
         <artifactId>ru.ventra.com.vaadin.server</artifactId>
         <version>${com.vaadin}</version>
+        <exclusions>
+          <exclusion>
+            <artifactId>appengine-api-1.0-sdk</artifactId>
+            <groupId>com.google.appengine</groupId>
+          </exclusion>
+        </exclusions>
       </dependency>
       <dependency>
         <groupId>com.vaadin</groupId>
@@ -298,6 +344,10 @@
             <groupId>javax.validation</groupId>
             <artifactId>validation-api</artifactId>
           </exclusion>
+          <exclusion>
+            <groupId>org.w3c.css</groupId>
+            <artifactId>sac</artifactId>
+          </exclusion>
         </exclusions>
       </dependency>
       <dependency>
@@ -307,18 +357,26 @@
       </dependency>
       <dependency>
         <groupId>com.vaadin</groupId>
+        <artifactId>vaadin-themes</artifactId>
+        <version>${com.vaadin}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.vaadin</groupId>
         <artifactId>vaadin-client-compiler</artifactId>
         <version>${com.vaadin}</version>
+        <scope>provided</scope><!-- needed only on widget (re)compilation -->
+        <exclusions>
+          <exclusion>
+            <groupId>com.vaadin</groupId>
+            <artifactId>vaadin-server</artifactId>
+          </exclusion>
+        </exclusions>
       </dependency>
       <dependency>
         <groupId>com.vaadin</groupId>
         <artifactId>vaadin-theme-compiler</artifactId>
         <version>${com.vaadin}</version>
-      </dependency>
-      <dependency>
-        <groupId>com.vaadin</groupId>
-        <artifactId>vaadin-themes</artifactId>
-        <version>${com.vaadin}</version>
+        <scope>provided</scope><!-- needed only on theme (re)compilation -->
       </dependency>
       <dependency>
         <groupId>com.vaadin.addon</groupId>
@@ -330,6 +388,35 @@
             <groupId>com.vaadin.addon</groupId>
           </exclusion>
         </exclusions>
+      </dependency>
+      <dependency>
+        <groupId>com.vaadin.addon</groupId>
+        <artifactId>ru.ventra.com.vaadin.addon.calendar</artifactId>
+        <version>${ru.ventra.com.vaadin.addon.calendar}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.vaadin.addon</groupId>
+        <artifactId>ru.ventra.com.vaadin.addon.charts</artifactId>
+        <version>${ru.ventra.com.vaadin.addon.charts}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.vaadin.addons</groupId>
+        <artifactId>ru.ventra.org.vaadin.addons.cssinject</artifactId>
+        <version>${ru.ventra.org.vaadin.addons.cssinject}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.vaadin.addon</groupId>
+        <artifactId>vaadin-calendar-cval-2.0</artifactId>
+        <version>2.0.0.beta3</version>
+        <classifier>sources</classifier>
+        <scope>provided</scope>
+      </dependency>
+      <dependency>
+        <groupId>com.vaadin.addon</groupId>
+        <artifactId>vaadin-charts</artifactId>
+        <version>1.0.0</version>
+        <classifier>sources</classifier>
+        <scope>provided</scope>
       </dependency>
 
       <!-- Tests -->
@@ -346,9 +433,9 @@
         <scope>test</scope>
       </dependency>
       <dependency>
-        <groupId>org.springframework</groupId>
-        <artifactId>org.springframework.instrument</artifactId>
-        <version>${org.springframework}</version>
+        <groupId>org.mockito</groupId>
+        <artifactId>mockito-all</artifactId>
+        <version>${org.mockito}</version>
         <scope>test</scope>
       </dependency>
     </dependencies>
@@ -471,9 +558,9 @@
                 <goal>copy-dependencies</goal>
               </goals>
               <configuration>
-                <excludeScope>provided</excludeScope>
+                <includeScope>runtime</includeScope>
+                <excludeGroupIds>ru.ventra.recruitment</excludeGroupIds>
                 <excludeClassifiers>sources</excludeClassifiers>
-                <excludeArtifactIds>ru.ventra.recruitment.app</excludeArtifactIds>
               </configuration>
             </execution>
           </executions>

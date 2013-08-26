@@ -19,43 +19,18 @@
   </properties>
 
   <dependencies>
-    <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>org.springframework.aspects</artifactId>
-    </dependency>
-
-    <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>org.springframework.web.servlet</artifactId>
-    </dependency>
-
-    <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>org.springframework.transaction</artifactId>
-    </dependency>
-
-    <dependency>
-      <groupId>org.springframework.security</groupId>
-      <artifactId>org.springframework.security.web</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework.security</groupId>
-      <artifactId>org.springframework.security.acls</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework.security</groupId>
-      <artifactId>org.springframework.security.config</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework.security</groupId>
-      <artifactId>org.springframework.security.core</artifactId>
-      <scope>provided</scope>
-    </dependency>
-
+    
+    <!-- Servlet -->
     <dependency>
       <groupId>javax.servlet</groupId>
       <artifactId>javax.servlet</artifactId>
     </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>org.springframework.web.servlet</artifactId>
+    </dependency>
+    
+    <!-- JSP/JSTL-->
     <dependency>
       <groupId>javax.servlet</groupId>
       <artifactId>javax.servlet.jsp</artifactId>
@@ -64,39 +39,69 @@
       <groupId>javax.servlet</groupId>
       <artifactId>com.springsource.javax.servlet.jsp.jstl</artifactId>
     </dependency>
-
-    <!-- tiles -->
-    <dependency>
-      <groupId>org.apache.tiles</groupId>
-      <artifactId>tiles-jsp</artifactId>
-    </dependency>
     <dependency>
       <groupId>org.apache.taglibs</groupId>
       <artifactId>com.springsource.org.apache.taglibs.standard</artifactId>
     </dependency>
+    
+    <!-- Spring/Security -->
     <dependency>
-      <groupId>commons-collections</groupId>
-      <artifactId>commons-collections</artifactId>
+      <groupId>org.springframework.security</groupId>
+      <artifactId>org.springframework.security.core</artifactId>
     </dependency>
-
+    <dependency>
+      <groupId>org.springframework.security</groupId>
+      <artifactId>org.springframework.security.config</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.security</groupId>
+      <artifactId>org.springframework.security.web</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.security</groupId>
+      <artifactId>org.springframework.security.acls</artifactId>
+    </dependency>
+    
+    <!-- Spring/AspectJ -->
+    <dependency>
+      <groupId>org.aspectj</groupId>
+      <artifactId>com.springsource.org.aspectj.runtime</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>org.springframework.aspects</artifactId>
+    </dependency>
+    
+    <!-- Transactions -->
+    <dependency>
+      <groupId>javax.transaction</groupId>
+      <artifactId>com.springsource.javax.transaction</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>org.springframework.transaction</artifactId>
+    </dependency>
+    
     <!-- Vaadin -->
     <dependency>
       <groupId>com.vaadin</groupId>
       <artifactId>ru.ventra.com.vaadin.server</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>com.vaadin</groupId>
-      <artifactId>vaadin-client</artifactId>
       <exclusions>
         <exclusion>
-          <groupId>org.w3c.css</groupId>
-          <artifactId>sac</artifactId>
+          <artifactId>vaadin-server</artifactId>
+          <groupId>com.vaadin</groupId>
         </exclusion>
       </exclusions>
     </dependency>
     <dependency>
+      <groupId>org.jsoup</groupId>
+      <artifactId>jsoup</artifactId>
+      <version>1.7.2</version>
+    </dependency>
+            
+    <dependency>
       <groupId>com.vaadin</groupId>
-      <artifactId>vaadin-client-compiler</artifactId>
+      <artifactId>vaadin-client</artifactId>
     </dependency>
     <dependency>
       <groupId>com.vaadin</groupId>
@@ -109,73 +114,51 @@
     <dependency>
       <groupId>com.vaadin</groupId>
       <artifactId>vaadin-theme-compiler</artifactId>
-      <exclusions>
-        <exclusion>
-          <artifactId>commons-cli</artifactId>
-          <groupId>commons-cli</groupId>
-        </exclusion>
-        <exclusion>
-          <groupId>org.apache.commons</groupId>
-          <artifactId>commons-jexl</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>org.w3c.css</groupId>
-          <artifactId>sac</artifactId>
-        </exclusion>
-        <exclusion>
-          <groupId>net.sourceforge.cssparser</groupId>
-          <artifactId>cssparser</artifactId>
-        </exclusion>
-      </exclusions>
     </dependency>
+    <dependency>
+      <groupId>com.vaadin</groupId>
+      <artifactId>vaadin-client-compiler</artifactId>
+    </dependency>
+    
+    <!-- Vaadin Addons -->
     <dependency>
       <groupId>com.vaadin.addon</groupId>
       <artifactId>ru.ventra.com.vaadin.addon.jpacontainer</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>javax.transaction</groupId>
-      <artifactId>com.springsource.javax.transaction</artifactId>
-      <scope>provided</scope>
-    </dependency>
-    
+    </dependency>    
     <dependency>
       <groupId>com.vaadin.addon</groupId>
       <artifactId>ru.ventra.com.vaadin.addon.calendar</artifactId>
-      <version>2.0.1</version>
     </dependency>
     <dependency>
       <groupId>com.vaadin.addon</groupId>
       <artifactId>ru.ventra.com.vaadin.addon.charts</artifactId>
-      <version>1.0.1</version>
+    </dependency>
+    <dependency>
+      <groupId>com.google.code.gson</groupId>
+      <artifactId>gson</artifactId>
+      <version>2.2</version>
+    </dependency>
+    <dependency>
+      <groupId>commons-io</groupId>
+      <artifactId>commons-io</artifactId>
     </dependency>
     <dependency>
       <groupId>org.vaadin.addons</groupId>
-      <artifactId>cssinject</artifactId>
-      <version>2.0.3</version>
+      <artifactId>ru.ventra.org.vaadin.addons.cssinject</artifactId>
     </dependency>
+    
+    <!-- Logging -->
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>jul-to-slf4j</artifactId>
+    </dependency>
+
+
 
     <dependency>
       <groupId>ru.ventra.recruitment</groupId>
       <artifactId>ru.ventra.recruitment.app</artifactId>
       <version>${project.version}</version>
-      <scope>provided</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.eclipse.tycho</groupId>
-      <artifactId>org.eclipse.osgi</artifactId>
-      <version>3.8.1.v20120830-144521</version>
-      <scope>provided</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.httpcomponents</groupId>
-      <artifactId>httpclient</artifactId>
-      <version>4.2.3</version>
-      <scope>provided</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.jsoup</groupId>
-      <artifactId>jsoup</artifactId>
-      <version>1.7.2</version>
       <scope>provided</scope>
     </dependency>
   </dependencies>
@@ -236,13 +219,14 @@
           <instructions>
             <Web-ContextPath>recruitment</Web-ContextPath>
             <Require-Bundle>
-              com.vaadin.client-compiled;bundle-version="[7,8)",
-              com.vaadin.themes;bundle-version="[7,8)",
+              com.vaadin.client-compiled;bundle-version="7.0.0",
+              com.vaadin.themes;bundle-version="7.0.0",
               ru.ventra.recruitment.ui.theme;bundle-version="[0.1,1)";resolution:=optional
             </Require-Bundle>
             <Import-Package>
               com.vaadin.event.dd,
               com.vaadin.shared,
+              com.vaadin.server,
               javax.annotation;version="0",
               javax.persistence.criteria,
               javax.persistence.metamodel,
@@ -273,7 +257,6 @@
               org.springframework.web.servlet.i18n,
               org.springframework.web.servlet.theme,
               org.springframework.web.servlet.view,
-              org.springframework.web.servlet.view.tiles2,
               org.springframework.security.config,
               org.springframework.security.core.userdetails,
               org.springframework.security.web.authentication,

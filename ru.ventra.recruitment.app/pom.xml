@@ -19,68 +19,91 @@
   </properties>
 
   <dependencies>
+  
+    <!-- OSGi -->
     <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>org.springframework.aspects</artifactId>
+      <groupId>org.osgi</groupId>
+      <artifactId>org.osgi.core</artifactId>
+      <version>4.2.0</version>
+      <scope>provided</scope>
     </dependency>
     <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>org.springframework.orm</artifactId>
-      <exclusions>
-        <exclusion>
-          <groupId>org.springframework</groupId>
-          <artifactId>org.springframework.jdbc</artifactId>
-        </exclusion>
-      </exclusions>
+      <groupId>org.osgi</groupId>
+      <artifactId>org.osgi.compendium</artifactId>
+      <version>4.2.0</version>
+      <scope>provided</scope>
     </dependency>
-    <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>org.springframework.transaction</artifactId>
-    </dependency>
+    
+    <!-- Spring/Security -->
     <dependency>
       <groupId>org.springframework.security</groupId>
       <artifactId>org.springframework.security.core</artifactId>
-      <exclusions>
-        <exclusion>
-          <groupId>org.apache.commons</groupId>
-          <artifactId>com.springsource.org.apache.commons.logging</artifactId>
-        </exclusion>
-      </exclusions>
     </dependency>
+    
+    <!-- Spring/AspectJ -->
     <dependency>
       <groupId>org.aspectj</groupId>
       <artifactId>com.springsource.org.aspectj.runtime</artifactId>
     </dependency>
-    <!-- DB/ORM -->
     <dependency>
-      <groupId>com.atomikos</groupId>
-      <artifactId>transactions-osgi</artifactId>
-      <exclusions>
-        <exclusion>
-          <groupId>org.mockito</groupId>
-          <artifactId>mockito-all</artifactId>
-        </exclusion>
-      </exclusions>
+      <groupId>org.springframework</groupId>
+      <artifactId>org.springframework.aspects</artifactId>
     </dependency>
+    
+    <!-- Transactions -->
     <dependency>
       <groupId>javax.transaction</groupId>
       <artifactId>com.springsource.javax.transaction</artifactId>
     </dependency>
     <dependency>
+      <groupId>com.atomikos</groupId>
+      <artifactId>transactions-osgi</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>org.springframework.transaction</artifactId>
+    </dependency>
+    
+    <!-- JDBC -->
+    <dependency>
+      <groupId>com.h2database</groupId>
+      <artifactId>h2</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>com.springsource.org.apache.commons.dbcp</artifactId>
+    </dependency>
+    
+    <!-- Database Migration -->
+    <dependency>
+      <groupId>org.liquibase</groupId>
+      <artifactId>liquibase-osgi</artifactId>
+    </dependency>
+    
+    <!-- ORM/JPA -->
+    <dependency>
       <groupId>org.eclipse.persistence</groupId>
       <artifactId>org.eclipse.persistence.osgi</artifactId>
     </dependency>
     <dependency>
-      <groupId>org.liquibase</groupId>
-      <artifactId>liquibase-osgi</artifactId>
+      <groupId>org.springframework</groupId>
+      <artifactId>org.springframework.orm</artifactId>
+    </dependency>
+    
+    <!-- Bean Validation -->
+    <dependency>
+      <groupId>javax.validation</groupId>
+      <artifactId>com.springsource.javax.validation</artifactId>
     </dependency>
     <dependency>
       <groupId>org.hibernate</groupId>
       <artifactId>hibernate-validator</artifactId>
     </dependency>
+    
+    <!-- Logging -->
     <dependency>
-      <groupId>javax.validation</groupId>
-      <artifactId>validation-api</artifactId>
+      <groupId>org.slf4j</groupId>
+      <artifactId>jul-to-slf4j</artifactId>
     </dependency>
   </dependencies>
 
@@ -123,6 +146,7 @@
         <artifactId>maven-bundle-plugin</artifactId>
         <configuration>
           <instructions>
+            <Bundle-Activator>ru.ventra.recruitment.Activator</Bundle-Activator>
             <Require-Bundle>
               org.eclipse.persistence.core;bundle-version="[2.4,3)",
               org.eclipse.persistence.asm;bundle-version="[3,4)",
@@ -132,22 +156,30 @@
               org.eclipse.persistence.jpa.osgi;bundle-version="[2.4,3)"
             </Require-Bundle>
             <Import-Package>
+              javax.sql;version=0,
+              org.apache.commons.dbcp,
+              org.h2;resolution:=optional,
+              
+              liquibase.integration.spring;version=0,
+              
               javax.persistence.criteria,
               javax.persistence.metamodel,
-              javax.sql;version=0,
+              
               javax.validation.constraints,
-              liquibase.integration.spring;version=0,
+              
               org.aopalliance.aop,
               org.aspectj.lang,
               org.aspectj.runtime,
-              org.h2,
               org.springframework.core,
               org.springframework.beans.factory.xml,
               org.springframework.stereotype,
               org.springframework.context.support,
               org.springframework.context.config,
               org.springframework.context.weaving,
+              
               org.springframework.orm.jpa,
+              org.springframework.orm.jpa.vendor,
+              
               *
             </Import-Package>
           </instructions>

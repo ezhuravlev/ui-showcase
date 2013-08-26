@@ -9,8 +9,6 @@ import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.persistence.EntityManager;
 
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Configurable;
 
@@ -212,8 +210,8 @@ public class CandidatesView extends VerticalLayout implements View, ClickListene
 	protected void importCV() {
 		try {
 			File input = new File("/tmp/input.html");
-			Document doc = Jsoup.parse(input, "UTF-8", "http://example.com/");
-			doc.attributes();
+			//Document doc = Jsoup.parse(input, "UTF-8", "http://example.com/");
+			//doc.attributes();
 			//id = hh.ru id
 			
 			//date
